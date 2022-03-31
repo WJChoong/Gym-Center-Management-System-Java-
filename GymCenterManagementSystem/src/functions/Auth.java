@@ -13,7 +13,6 @@ public class Auth {
     	while((data=reader.readLine()) != null) {
     		System.out.println(data);
     		String[] rawData = data.split(",") ;
-    		System.out.println(rawData.length);
     		if (rawData[1].equals(username) &&  rawData[2].equals(password)) {
     			status = true;
     			break;
