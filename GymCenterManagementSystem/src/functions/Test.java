@@ -2,10 +2,11 @@ package functions;
 
 import java.io.IOException;
 
+import gui.*;
+
 public class Test {
 	public static void main(String[] args) throws IOException {
-		Auth test = new Auth();
-		String response = test.login("Alice Chin", "Chin89190h");
-		System.out.print(response);		
+//		ManagerAccount p1 = new ManagerAccount();
+		TrainerAccount p1 = new TrainerAccount();
 	}
 }
