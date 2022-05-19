@@ -9,12 +9,12 @@ package gui;
  *
  * @author User
  */
-public class ManaageIndividualAppointment extends javax.swing.JFrame {
+public class ManageIndividualAppointment extends javax.swing.JFrame {
 
     /**
      * Creates new form ManaageIndividualAppointment
      */
-    public ManaageIndividualAppointment() {
+    public ManageIndividualAppointment() {
         initComponents();
     }
 
@@ -39,30 +39,30 @@ public class ManaageIndividualAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Manage Individual Appointment");
 
         jTextField1.setText("jTextField1");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Search");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Appointment ID", "Customer ID", "Date", "Time", "Duration (h)", "Functions"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setText("Other Functions:");
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Create New Appointment");
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Cancel");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -141,20 +141,21 @@ public class ManaageIndividualAppointment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManaageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManaageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManaageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManaageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageIndividualAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManaageIndividualAppointment().setVisible(true);
+                new ManageIndividualAppointment().setVisible(true);
             }
         });
     }
