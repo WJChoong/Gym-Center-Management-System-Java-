@@ -6,21 +6,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Auth {
-    public String login(String username, String password) throws IOException {
+    public static User login(String username, String password) throws IOException {
     	BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
     	String data = null;
-    	String pos = null;
+    	User user = new User();
     	Boolean status = false;
     	while((data=reader.readLine()) != null) {
     		String[] rawData = data.split(",") ;
     		if (rawData[1].equals(username) &&  rawData[2].equals(password)) {
     			status = true;
-    			pos = rawData[3];
+    			user.setId(rawData[0]);
+    			user.setName(rawData[1]);
+    			user.setPosition(rawData[3]);
     			break;
     		}
     	}
     	reader.close();
-        return pos;
+        return user;
     }
 
     public boolean resetPassword(String username, String newPassword, String confirmPassword) {
