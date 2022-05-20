@@ -11,18 +11,18 @@ public class LoginPage extends JFrame implements ActionListener{
     private String username, password;
     
 	public LoginPage() {
-		setSize(600, 400);
-		setLocation(500, 200);
-		setTitle("APU Gym Management System");
-		setLayout(new FlowLayout());
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(600, 400);
+            setLocation(500, 200);
+            setTitle("APU Gym Management System");
+            setLayout(new FlowLayout());
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            internalGUI();
+            btnLogin.addActionListener(this);
+            btnForget.addActionListener(this);
+            btnRegister.addActionListener(this);
 		
-		internalGUI();
-		btnLogin.addActionListener(this);
-        btnForget.addActionListener(this);
-        btnRegister.addActionListener(this);
-		
-		setVisible(true);	
+            setVisible(true);	
 	}
 
 	@Override
