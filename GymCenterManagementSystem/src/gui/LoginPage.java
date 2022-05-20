@@ -36,14 +36,13 @@ public class LoginPage extends JFrame implements ActionListener{
                     if (Data.user.getPosition().equals("M")){
                     	ManagerAccount account = new ManagerAccount();
                         setVisible(false);
-                    }else {
+                    }else if(Data.user.getPosition().equals("T")){
                     	TrainerAccount account = new TrainerAccount();
                         setVisible(false);
                     }
-                    lblMessage.setText("Invalid username or password");
                 }
             }catch(Exception e){
-                
+            	lblMessage.setText("Invalid username or password");
             }
 	}
 	
@@ -79,7 +78,8 @@ public class LoginPage extends JFrame implements ActionListener{
             pPass.add(lblPass); 
             pPass.add(txtPass);
             
-            lblMessage = new Label("");
+            lblMessage = new Label("                                                   ");
+            lblMessage.setFont(new Font("Verdana", Font.PLAIN, 15));
             pMessage.add(lblMessage); 
 
             btnRegister = new Button("Register");
