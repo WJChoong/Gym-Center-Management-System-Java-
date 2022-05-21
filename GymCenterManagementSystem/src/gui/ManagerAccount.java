@@ -6,26 +6,27 @@ import javax.swing.JFrame;
 
 public class ManagerAccount extends JFrame implements ActionListener{
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public ManagerAccount() {
-		setSize(600, 400);
-		setLocation(500, 200);
-		setTitle("APU Gym Management System");
-		setLayout(new FlowLayout());
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		internalGUI();
-		
-		setVisible(true);	
-	}
-	
-	private void internalGUI() {
-		Panel pTitle = new Panel();
+    @Override
+    public void actionPerformed(ActionEvent a) {
+        try{
+        }catch(Exception e){
+        }
+    }
+
+    public ManagerAccount() {
+        setSize(600, 400);
+        setLocation(500, 200);
+        setTitle("APU Gym Management System");
+        setLayout(new FlowLayout());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        internalGUI();
+
+        setVisible(true);	
+    }
+
+    private void internalGUI() {
+        Panel pTitle = new Panel();
         Panel p2 = new Panel();
         Panel p3 = new Panel();
         Panel p4 = new Panel();
@@ -34,7 +35,7 @@ public class ManagerAccount extends JFrame implements ActionListener{
         Panel p7 = new Panel();
         Panel p8 = new Panel();
         Panel p9 = new Panel();
-        
+
         Label lbl1 = new Label("Welcome, Manager");
         Label lbl2 = new Label("Please Select to Manage:");
         Button btn1 = new Button("Manager/Trainer Account");
@@ -44,7 +45,7 @@ public class ManagerAccount extends JFrame implements ActionListener{
         Button btn4 = new Button("Payment& Feedback Analysis");
         Button btn5 = new Button("Generate Statistical Report");
         Button btn6 = new Button("Exit");
-        
+
         pTitle.setPreferredSize(new Dimension(500, 40));
         p2.setPreferredSize(new Dimension(600, 30));
         p3.setPreferredSize(new Dimension(600, 30));
@@ -63,7 +64,7 @@ public class ManagerAccount extends JFrame implements ActionListener{
         add(p7);
         add(p8);
         add(p9);    
-        
+
         pTitle.add(lbl1);
         p2.add(lbl2);
         p3.add(btn1);
@@ -73,5 +74,5 @@ public class ManagerAccount extends JFrame implements ActionListener{
         p7.add(btn4);
         p8.add(btn5);
         p9.add(btn6);
-	}
+    }
 }

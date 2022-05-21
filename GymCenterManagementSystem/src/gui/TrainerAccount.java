@@ -4,12 +4,27 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
 
+import models.Data;
+
 public class TrainerAccount  extends JFrame implements ActionListener{
+	private Button btnExit, btn3, btn2, btn1;
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent a) {
+		try{	
+			if (a.getSource() == btnExit){
+				LoginPage loginpage = new LoginPage();
+				Data.user = null;
+				setVisible(false);
+			}else if(a.getSource() == btn1) {
+				UpdateProfile profile = new UpdateProfile();
+				profile.setVisible(true);
+				System.out.println("1");
+				setVisible(false);
+			}
+		}catch(Exception e) {
+			
+		}
 	}
 	
 	public TrainerAccount() {
@@ -20,6 +35,8 @@ public class TrainerAccount  extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		internalGUI();
+		btnExit.addActionListener(this);
+		btn1.addActionListener(this);
 		
 		setVisible(true);
 	}
@@ -34,10 +51,10 @@ public class TrainerAccount  extends JFrame implements ActionListener{
         
         Label lbl1 = new Label("Welcome, Manager");
         Label lbl2 = new Label("You are Authorized to:");
-        Button btn1 = new Button("Update Individual Appointment");
-        Button btn2 = new Button("Manage Individual Appointment");
-        Button btn3 = new Button("Collect Payment & Give Feedback");
-        Button btn4 = new Button("Exit");
+        btn1 = new Button("Update Individual Profile");
+        btn2 = new Button("Manage Individual Appointment");
+        btn3 = new Button("Collect Payment & Give Feedback");
+        btnExit = new Button("Exit");
         
         pTitle.setPreferredSize(new Dimension(500, 40));
         p2.setPreferredSize(new Dimension(600, 40));
@@ -57,6 +74,6 @@ public class TrainerAccount  extends JFrame implements ActionListener{
         p3.add(btn1);
         p4.add(btn2);
         p5.add(btn3);
-        p6.add(btn4);
+        p6.add(btnExit);
 	}
 }

@@ -16,8 +16,13 @@ public class Auth {
     		if (rawData[1].equals(username) &&  rawData[2].equals(password)) {
     			status = true;
     			user.setId(rawData[0]);
-    			user.setName(rawData[1]);
+    			user.setName(rawData[4]);
     			user.setPosition(rawData[3]);
+    			user.setAge(rawData[5]);
+    			user.setGender(rawData[6]);
+    			user.setCountry(rawData[7]);
+    			user.setPassword(rawData[2]);
+    			user.setUsername(rawData[1]);
     			break;
     		}
     	}

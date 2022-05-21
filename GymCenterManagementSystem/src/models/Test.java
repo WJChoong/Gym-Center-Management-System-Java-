@@ -8,6 +8,6 @@ public class Test {
 	public static void main(String[] args) throws IOException {
 //		ManagerAccount p1 = new ManagerAccount();
 //		ManageAppointment p1 = new ManageAppointment();
-            LoginPage p1 = new LoginPage();
+            LoginPage loginpage = new LoginPage();
 	}
 }
