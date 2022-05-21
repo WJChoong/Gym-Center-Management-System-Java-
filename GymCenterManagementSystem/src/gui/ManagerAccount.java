@@ -4,12 +4,20 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
 
+import models.Data;
+
 public class ManagerAccount extends JFrame implements ActionListener{
+	private Button btn1, btn2, btn3, btn4, btn5, btn6;
 	
     @Override
     public void actionPerformed(ActionEvent a) {
         try{
+        	if(a.getSource() == btn6) {
+        		LoginPage loginpage = new LoginPage();
+				Data.user = null;
+        	}
         }catch(Exception e){
+        	
         }
     }
 
@@ -21,6 +29,7 @@ public class ManagerAccount extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         internalGUI();
+        btn6.addActionListener(this);
 
         setVisible(true);	
     }
@@ -38,13 +47,13 @@ public class ManagerAccount extends JFrame implements ActionListener{
 
         Label lbl1 = new Label("Welcome, Manager");
         Label lbl2 = new Label("Please Select to Manage:");
-        Button btn1 = new Button("Manager/Trainer Account");
-        Button btn2 = new Button("Customer Account");
-        Button btn3 = new Button("All Appointment");
+        btn1 = new Button("Manager/Trainer Account");
+        btn2 = new Button("Customer Account");
+        btn3 = new Button("All Appointment");
         Label lbl6 = new Label("Other Functions");
-        Button btn4 = new Button("Payment& Feedback Analysis");
-        Button btn5 = new Button("Generate Statistical Report");
-        Button btn6 = new Button("Exit");
+        btn4 = new Button("Payment& Feedback Analysis");
+        btn5 = new Button("Generate Statistical Report");
+        btn6 = new Button("Exit");
 
         pTitle.setPreferredSize(new Dimension(500, 40));
         p2.setPreferredSize(new Dimension(600, 30));

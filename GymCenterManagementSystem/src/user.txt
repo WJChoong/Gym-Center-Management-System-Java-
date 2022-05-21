@@ -1,2 +1,2 @@
-US00001,Alice Chin,Chin89190h,M,Alice,25,F,Singapore
+US00001,AliceChin,Chin89190h,M,Alice,25,F,Singapore
 US00002,baRry,Chin89190h,T,Barry,25,M,Malaysia
