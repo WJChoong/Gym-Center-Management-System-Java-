@@ -16,6 +16,20 @@ public class ManagerAccount extends JFrame implements ActionListener{
         		LoginPage loginpage = new LoginPage();
         		setVisible(false);
 				Data.user = null;
+        	}else if(a.getSource() == btn5) {
+//        		manageCustomer.setVisible(true);
+//        		setVisible(false);
+        	}else if(a.getSource() == btn4) {
+//        		manageCustomer.setVisible(true);
+//        		setVisible(false);
+        	}else if(a.getSource() == btn3) {
+        		ManageAppointment manageAppointment = new ManageAppointment();
+        		manageAppointment.setVisible(true);
+        		setVisible(false);
+        	}else if(a.getSource() == btn2) {
+        		ManageCustomer manageCustomer = new ManageCustomer();
+        		manageCustomer.setVisible(true);
+        		setVisible(false);
         	}else if(a.getSource() == btn1){
         		ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
         		manageTrainer.setVisible(true);
@@ -35,6 +49,10 @@ public class ManagerAccount extends JFrame implements ActionListener{
 
         internalGUI();
         btn6.addActionListener(this);
+        btn5.addActionListener(this);
+        btn4.addActionListener(this);
+        btn3.addActionListener(this);
+        btn2.addActionListener(this);
         btn1.addActionListener(this);
 
         setVisible(true);	

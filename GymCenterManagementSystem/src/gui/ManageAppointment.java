@@ -5,6 +5,17 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
+
+import models.Auth;
+import models.Customer;
+import models.Data;
+
 /**
  *
  * @author User
@@ -13,9 +24,61 @@ public class ManageAppointment extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageAppointment
+     * @throws IOException 
      */
-    public ManageAppointment() {
+    public ManageAppointment() throws IOException {
         initComponents();
+        addRowToJTable();
+    }
+    
+    private ArrayList ListCustomers() throws IOException
+    {
+        ArrayList<Customer> list = new ArrayList<Customer>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("customer.txt")));
+    	String data = null;
+    	while((data=reader.readLine()) != null) {
+    		String[] rawData = data.split(",") ;
+    		Customer user = new Customer();
+            user.setId(rawData[0]);
+            user.setName(rawData[1]);
+            user.setAge(rawData[2]);
+            user.setGender(rawData[3]);
+            list.add(user);
+    	}
+    	reader.close();
+        return list;
+    }
+    
+    private void addRowToJTable() throws IOException
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        ArrayList<Customer> list = ListCustomers();
+        Data.customerList = list;
+        for(int i = 0; i < list.size(); i++)
+        {
+        	Object rowData[] = new Object[6];
+        	if (jTextField1.getText().length() > 0){
+        		String keyword = jTextField1.getText();
+        		if (list.get(i).getId().contains(keyword) ||
+    				list.get(i).getName().contains(keyword) ||
+	                list.get(i).getAge().contains(keyword) ||
+	                list.get(i).getGender().contains(keyword)
+                ) {
+        			rowData[0] = list.get(i).getId();
+                    rowData[1] = list.get(i).getName();
+                    rowData[2] = list.get(i).getAge();
+                    rowData[3] = list.get(i).getGender();
+        		}
+        	}else {
+        		rowData[0] = list.get(i).getId();
+                rowData[1] = list.get(i).getName();
+                rowData[2] = list.get(i).getAge();
+                rowData[3] = list.get(i).getGender();
+        	}
+            model.addRow(rowData);
+        }
+                
     }
 
     /**
@@ -37,6 +100,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,18 +125,28 @@ public class ManageAppointment extends javax.swing.JFrame {
         );
 
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Appointment ID", "Trainer ID", "Customer ID", "Date", "Time", "Duration (h)", "Functions"
+                "Appointment ID", "Trainer ID", "Customer ID", "Date", "Time", "Duration (h)"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Other Functions:");
@@ -97,12 +172,15 @@ public class ManageAppointment extends javax.swing.JFrame {
 
         jButton4.setText("Cancel");
 
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
+
+        jButton5.setText("Delete Appointment");
+
+        jButton6.setText("Edit Appointment");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,7 +188,7 @@ public class ManageAppointment extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(366, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -118,11 +196,15 @@ public class ManageAppointment extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
+                .addGap(27, 27, 27)
                 .addComponent(jButton3)
-                .addGap(63, 63, 63)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +221,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -149,6 +233,12 @@ public class ManageAppointment extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    	ManagerAccount account = new ManagerAccount();
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +279,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

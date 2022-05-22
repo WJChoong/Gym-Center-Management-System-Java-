@@ -5,6 +5,18 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
+
+import models.Auth;
+import models.Customer;
+import models.Data;
+import models.User;
+
 /**
  *
  * @author User
@@ -13,11 +25,62 @@ public class ManageCustomer extends javax.swing.JFrame {
 
     /**
      * Creates new form ManageCustomer
+     * @throws IOException 
      */
-    public ManageCustomer() {
+    public ManageCustomer() throws IOException {
         initComponents();
+        addRowToJTable();
     }
 
+    private ArrayList ListCustomers() throws IOException
+    {
+        ArrayList<Customer> list = new ArrayList<Customer>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("customer.txt")));
+    	String data = null;
+    	while((data=reader.readLine()) != null) {
+    		String[] rawData = data.split(",") ;
+    		Customer user = new Customer();
+            user.setId(rawData[0]);
+            user.setName(rawData[1]);
+            user.setAge(rawData[2]);
+            user.setGender(rawData[3]);
+            list.add(user);
+    	}
+    	reader.close();
+        return list;
+    }
+    
+    private void addRowToJTable() throws IOException
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        ArrayList<Customer> list = ListCustomers();
+        Data.customerList = list;
+        for(int i = 0; i < list.size(); i++)
+        {
+        	Object rowData[] = new Object[6];
+        	if (jTextField1.getText().length() > 0){
+        		String keyword = jTextField1.getText();
+        		if (list.get(i).getId().contains(keyword) ||
+    				list.get(i).getName().contains(keyword) ||
+	                list.get(i).getAge().contains(keyword) ||
+	                list.get(i).getGender().contains(keyword)
+                ) {
+        			rowData[0] = list.get(i).getId();
+                    rowData[1] = list.get(i).getName();
+                    rowData[2] = list.get(i).getAge();
+                    rowData[3] = list.get(i).getGender();
+        		}
+        	}else {
+        		rowData[0] = list.get(i).getId();
+                rowData[1] = list.get(i).getName();
+                rowData[2] = list.get(i).getAge();
+                rowData[3] = list.get(i).getGender();
+        	}
+            model.addRow(rowData);
+        }
+                
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +101,8 @@ public class ManageCustomer extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,15 +145,20 @@ public class ManageCustomer extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Customer ID", "Name", "Age", "Gender", "Functions"
+                "Customer ID", "Name", "Age", "Gender"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Other Functions:");
@@ -114,7 +184,9 @@ public class ManageCustomer extends javax.swing.JFrame {
 
         jButton4.setText("Cancel");
 
-        jTextField1.setText("jTextField1");
+        jButton5.setText("Edit Account");
+
+        jButton6.setText("Delete Account");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,19 +196,23 @@ public class ManageCustomer extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
                         .addComponent(jButton3)
-                        .addGap(75, 75, 75)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(99, 99, 99))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,9 +227,11 @@ public class ManageCustomer extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,6 +240,8 @@ public class ManageCustomer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    	ManagerAccount account = new ManagerAccount();
+        setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -194,7 +274,12 @@ public class ManageCustomer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageCustomer().setVisible(true);
+                try {
+					new ManageCustomer().setVisible(true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
@@ -203,6 +288,8 @@ public class ManageCustomer extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
