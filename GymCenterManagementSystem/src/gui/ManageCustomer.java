@@ -39,12 +39,12 @@ public class ManageCustomer extends javax.swing.JFrame {
     	String data = null;
     	while((data=reader.readLine()) != null) {
     		String[] rawData = data.split(",") ;
-    		Customer user = new Customer();
-            user.setId(rawData[0]);
-            user.setName(rawData[1]);
-            user.setAge(rawData[2]);
-            user.setGender(rawData[3]);
-            list.add(user);
+    		Customer customer = new Customer();
+    		customer.setId(rawData[0]);
+    		customer.setName(rawData[1]);
+    		customer.setAge(rawData[2]);
+    		customer.setGender(rawData[3]);
+            list.add(customer);
     	}
     	reader.close();
         return list;
@@ -58,7 +58,7 @@ public class ManageCustomer extends javax.swing.JFrame {
         Data.customerList = list;
         for(int i = 0; i < list.size(); i++)
         {
-        	Object rowData[] = new Object[6];
+        	Object rowData[] = new Object[4];
         	if (jTextField1.getText().length() > 0){
         		String keyword = jTextField1.getText();
         		if (list.get(i).getId().contains(keyword) ||

@@ -7,4 +7,6 @@ public class Data {
 	public static ArrayList<User> userList = null;
 	public static Customer customer = null;
 	public static ArrayList<Customer> customerList = null;
+	public static Appointment appointment = null;
+	public static ArrayList<Appointment> appointmentList = null;
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
+import models.Appointment;
 import models.Auth;
 import models.Customer;
 import models.Data;
@@ -31,19 +32,21 @@ public class ManageAppointment extends javax.swing.JFrame {
         addRowToJTable();
     }
     
-    private ArrayList ListCustomers() throws IOException
+    private ArrayList ListAppointments() throws IOException
     {
-        ArrayList<Customer> list = new ArrayList<Customer>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("customer.txt")));
+        ArrayList<Appointment> list = new ArrayList<Appointment>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
     	String data = null;
     	while((data=reader.readLine()) != null) {
     		String[] rawData = data.split(",") ;
-    		Customer user = new Customer();
-            user.setId(rawData[0]);
-            user.setName(rawData[1]);
-            user.setAge(rawData[2]);
-            user.setGender(rawData[3]);
-            list.add(user);
+    		Appointment appointment = new Appointment();
+    		appointment.setId(rawData[0]);
+    		appointment.setTrainerId(rawData[1]);
+    		appointment.setCustomerId(rawData[2]);
+    		appointment.setDate(rawData[3]);
+    		appointment.setTime(rawData[4]);
+    		appointment.setDuration(rawData[5]);
+            list.add(appointment);
     	}
     	reader.close();
         return list;
@@ -53,28 +56,34 @@ public class ManageAppointment extends javax.swing.JFrame {
     {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        ArrayList<Customer> list = ListCustomers();
-        Data.customerList = list;
+        ArrayList<Appointment> list = ListAppointments();
+        Data.appointmentList = list;
         for(int i = 0; i < list.size(); i++)
         {
         	Object rowData[] = new Object[6];
         	if (jTextField1.getText().length() > 0){
         		String keyword = jTextField1.getText();
         		if (list.get(i).getId().contains(keyword) ||
-    				list.get(i).getName().contains(keyword) ||
-	                list.get(i).getAge().contains(keyword) ||
-	                list.get(i).getGender().contains(keyword)
+    				list.get(i).getTrainerId().contains(keyword) ||
+	                list.get(i).getCustomerId().contains(keyword) ||
+	                list.get(i).getDate().contains(keyword) ||
+	                list.get(i).getTime().contains(keyword) ||
+	                list.get(i).getDuration().contains(keyword)
                 ) {
         			rowData[0] = list.get(i).getId();
-                    rowData[1] = list.get(i).getName();
-                    rowData[2] = list.get(i).getAge();
-                    rowData[3] = list.get(i).getGender();
+                    rowData[1] = list.get(i).getTrainerId();
+                    rowData[2] = list.get(i).getCustomerId();
+                    rowData[3] = list.get(i).getDate();
+                    rowData[4] = list.get(i).getTime();
+                    rowData[5] = list.get(i).getDuration();
         		}
         	}else {
         		rowData[0] = list.get(i).getId();
-                rowData[1] = list.get(i).getName();
-                rowData[2] = list.get(i).getAge();
-                rowData[3] = list.get(i).getGender();
+                rowData[1] = list.get(i).getTrainerId();
+                rowData[2] = list.get(i).getCustomerId();
+                rowData[3] = list.get(i).getDate();
+                rowData[4] = list.get(i).getTime();
+                rowData[5] = list.get(i).getDuration();
         	}
             model.addRow(rowData);
         }
@@ -127,7 +136,12 @@ public class ManageAppointment extends javax.swing.JFrame {
         jButton1.setText("Search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -171,6 +185,11 @@ public class ManageAppointment extends javax.swing.JFrame {
         jButton3.setText("Create New Appointment");
 
         jButton4.setText("Cancel");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,11 +253,16 @@ public class ManageAppointment extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    	ManagerAccount account = new ManagerAccount();
-        setVisible(false);
+    	addRowToJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        ManagerAccount account = new ManagerAccount();
+        setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +294,12 @@ public class ManageAppointment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageAppointment().setVisible(true);
+                try {
+					new ManageAppointment().setVisible(true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
