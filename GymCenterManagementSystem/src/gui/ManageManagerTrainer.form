@@ -114,11 +114,9 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="9" rowCount="4">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="true" title="User ID" type="java.lang.String"/>
                 <Column editable="true" title="Name" type="java.lang.String"/>
-                <Column editable="true" title="Account Type" type="java.lang.String"/>
-                <Column editable="true" title="Functions" type="java.lang.String"/>
                 <Column editable="true" title="Position" type="java.lang.String"/>
                 <Column editable="true" title="Age" type="java.lang.String"/>
                 <Column editable="true" title="Gender" type="java.lang.String"/>
@@ -128,16 +126,6 @@
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -216,6 +204,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add New Account"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>

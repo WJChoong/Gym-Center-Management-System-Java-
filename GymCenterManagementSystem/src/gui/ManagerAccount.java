@@ -14,7 +14,12 @@ public class ManagerAccount extends JFrame implements ActionListener{
         try{
         	if(a.getSource() == btn6) {
         		LoginPage loginpage = new LoginPage();
+        		setVisible(false);
 				Data.user = null;
+        	}else if(a.getSource() == btn1){
+        		ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+        		manageTrainer.setVisible(true);
+        		setVisible(false);
         	}
         }catch(Exception e){
         	
@@ -30,6 +35,7 @@ public class ManagerAccount extends JFrame implements ActionListener{
 
         internalGUI();
         btn6.addActionListener(this);
+        btn1.addActionListener(this);
 
         setVisible(true);	
     }

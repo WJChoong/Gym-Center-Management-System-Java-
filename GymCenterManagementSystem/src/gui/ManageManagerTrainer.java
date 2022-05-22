@@ -5,19 +5,85 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+
+import models.Auth;
+import models.User;
+
 /**
  *
  * @author User
  */
 public class ManageManagerTrainer extends javax.swing.JFrame {
+	ArrayList<JButton> buttonList = new ArrayList<JButton>();
 
     /**
      * Creates new form ManageManagerTrainer
+     * @throws IOException 
      */
-    public ManageManagerTrainer() {
+    public ManageManagerTrainer() throws IOException {
         initComponents();
+        addRowToJTable();
     }
-
+    
+    public ArrayList ListUsers() throws IOException
+    {
+    	buttonList.clear();
+        ArrayList<User> list = new ArrayList<User>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
+    	String data = null;
+    	User user = new User();
+    	Boolean status = false;
+    	while((data=reader.readLine()) != null) {
+    		String[] rawData = data.split(",") ;
+    		System.out.println(rawData[0]);
+    		System.out.println(rawData[1]);
+    		System.out.println(rawData[2]);
+    		System.out.println(rawData[3]);
+    		System.out.println(rawData[4]);
+    		System.out.println(rawData[5]);
+    		System.out.println(rawData[6]);
+    		System.out.println(rawData[7]);
+			user.setId(rawData[0]);
+			user.setName(rawData[4]);
+			user.setPosition(rawData[3]);
+			user.setAge(rawData[5]);
+			user.setGender(rawData[6]);
+			user.setCountry(rawData[7]);
+			user.setPassword(rawData[2]);
+			user.setUsername(rawData[1]);
+			list.add(user);
+			buttonList.add(new JButton("Edit" + rawData[0]));
+    	}
+    	reader.close();
+        return list;
+    }
+    
+    public void addRowToJTable() throws IOException
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ArrayList<User> list = ListUsers();
+        for(int i = 0; i < list.size(); i++)
+        {
+        	Object rowData[] = new Object[7];
+            rowData[0] = list.get(i).getId();
+            rowData[1] = list.get(i).getName();
+            rowData[2] = list.get(i).getPosition();
+            rowData[3] = list.get(i).getAge();
+            rowData[4] = list.get(i).getGender();
+            rowData[5] = list.get(i).getCountry();
+            rowData[6] = buttonList.get(i);
+            model.addRow(rowData);
+        }
+                
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,17 +134,14 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "User ID", "Name", "Account Type", "Functions", "Position", "Age", "Gender", "Country", "Action"
+                "User ID", "Name", "Position", "Age", "Gender", "Country", "Action"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,6 +170,11 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         );
 
         jButton3.setText("Add New Account");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cancel");
 
@@ -166,6 +234,12 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       NewUser newUser = new NewUser();
+       newUser.setVisible(true);
+       setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,7 +270,12 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageManagerTrainer().setVisible(true);
+                try {
+					new ManageManagerTrainer().setVisible(true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
