@@ -5,32 +5,27 @@
  */
 package gui;
 
-import static gui.EditUser.isNumeric;
-import static models.Auth.removeCharacter;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import models.Auth;
+import models.Data;
 
 /**
  *
  * @author User
  */
-public class NewAppointment extends javax.swing.JFrame {
-
+public class EditAppointment extends javax.swing.JFrame {
+	int index;
     /**
      * Creates new form NewAppointment
      */
-    public NewAppointment() {
+    public EditAppointment() {
         initComponents();
     }
 
@@ -58,6 +53,7 @@ public class NewAppointment extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,11 +83,6 @@ public class NewAppointment extends javax.swing.JFrame {
         jLabel3.setText("Customer ID");
 
         jTextField2.setText("jTextField2");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Date");
 
@@ -101,7 +92,7 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jTextField4.setText("jTextField4");
 
-        jButton1.setText("Create");
+        jButton1.setText("Edit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -119,7 +110,9 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jTextField5.setText("jTextField5");
 
-        jLabel7.setText("                                           ");
+        jLabel7.setText("                                        ");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,32 +122,36 @@ public class NewAppointment extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,7 +173,7 @@ public class NewAppointment extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -187,83 +184,57 @@ public class NewAppointment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    	if(jTextField1.getText().contains(",") || 
-                jTextField2.getText().contains(",") || 
-                jTextField3.getText().contains(",") || 
-                jTextField4.getText().contains(",") || 
-                jTextField5.getText().contains(",")) {
-                jLabel7.setText("Please do not include ',' symbol in any of your information");
-        	}else if (jTextField1.getText().isEmpty() || 
-                jTextField2.getText().isEmpty() || 
-                jTextField3.getText().isEmpty() || 
-                jTextField4.getText().isEmpty() ||
-                isNumeric(jTextField5.getText()) ||
-                jTextField5.getText().isEmpty() ||
-                isNumeric(jTextField4.getText())){
-                jLabel7.setText("Please fill in all the information correctly");
-        	}else{
-        		try {
-                    String filename = "src\\customer.txt";
-                    File file = new File(filename);
-                    Scanner inputFile = new Scanner(file);
-                    // Read lines from the file until no more are left.
-                    int num = 0;
-                    while (inputFile.hasNext())
-                    {
-                        // Read the next line.
-                        String data = inputFile.nextLine();
-                        
-                        // Split the line by using the delimiter ":" (semicolon) and store into array.
-                        String[] details = data.split(",");
-                        int ID = removeCharacter(details[0], "CS");
-                        if (ID > num){
-                            num = ID;
-                        }
-                    }
-                    inputFile.close(); // Close the file
-                    FileWriter fw = new FileWriter(filename, true);
-                    PrintWriter outputFile = new PrintWriter(fw);
-                    num ++;
-                    String num_ID = String.valueOf(num);
-                    String ID = "0";
-                    if (num_ID.length() < 5){
-                        for (int i = 0; i < (5-num_ID.length()); i++){
-                            String halfID = "0";
-                            ID = ID + halfID;
-                        }
-                        ID = "AP"+ ID + num;
-                    }
-                    else{
-                        ID = "AP" + num;
-                    }
-                    String data = ID + "," + jTextField1.getText() + "," + 
-                    				jTextField2.getText() + "," + jTextField3.getText() + "," +
-                    				jTextField4.getText() + "," + jTextField5.getText();
-                    outputFile.println(data);
-                    outputFile.close();
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        	}
+    	try {
+            String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\appointment.txt";
+            //Instantiating the Scanner class to read the file
+            Scanner sc = new Scanner(new File(filePath));
+            //instantiating the StringBuffer class
+            StringBuffer buffer = new StringBuffer();
+            //Reading lines of the file and appending them to StringBuffer
+            while (sc.hasNextLine()) {
+                buffer.append(sc.nextLine()+System.lineSeparator());
+            }
+            String fileContents = buffer.toString();
+            sc.close();
+            String oldLine = Data.appointmentList.get(index).getId() + "," +
+	                    Data.appointmentList.get(index).getTrainerId() + "," +
+	                    Data.appointmentList.get(index).getCustomerId() + "," +
+	                    Data.appointmentList.get(index).getDate() + "," +
+	                    Data.appointmentList.get(index).getTime() + "," +
+                        Data.appointmentList.get(index).getDuration();
+
+            String newLine = jComboBox1.getSelectedItem().toString() + "," +
+                    jTextField1.getText() + "," +
+                    jTextField2.getText() + "," +
+                    jTextField3.getText() + "," +
+                    jTextField4.getText() + "," +
+                    jTextField5.getText() + ",";
+            //Replacing the old line with new line
+            fileContents = fileContents.replaceAll(oldLine, newLine);
+            //instantiating the FileWriter class
+            FileWriter writer = new FileWriter(filePath);
+            writer.append(fileContents);
+            writer.flush();
+            JOptionPane.showMessageDialog(this, "The information had been updated!");
+            ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+            manageTrainer.setVisible(true);
+            setVisible(false);
+        }catch(IOException e){
+            try {
+                JOptionPane.showMessageDialog(null, "Failed to update the customer");
+                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                manageTrainer.setVisible(true);
+                setVisible(false);
+            } catch (IOException ex) {
+                Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            // TODO add your handling code here:
-            ManageAppointment manageAppointment = new ManageAppointment();
-            manageAppointment.setVisible(true);
-            setVisible(false);
-        } catch (IOException ex) {
-            Logger.getLogger(NewAppointment.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -283,20 +254,21 @@ public class NewAppointment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewAppointment().setVisible(true);
+                new EditAppointment().setVisible(true);
             }
         });
     }
@@ -304,6 +276,7 @@ public class NewAppointment extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

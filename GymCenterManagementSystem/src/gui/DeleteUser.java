@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -253,36 +254,79 @@ public class DeleteUser extends javax.swing.JFrame {
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        BufferedReader reader = null;
-        try {
-            // TODO add your handling code here:
-            File inputFile = new File("src\\user.txt");
-            File tempFile = new File("src\\myTempFile.txt");
-            reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-            String lineToRemove = Data.userList.get(index).getId() + "," +
-                                    Data.userList.get(index).getUsername() + "," +
-                                    Data.userList.get(index).getPassword() + "," +
-                                    Data.userList.get(index).getPosition() + "," +
-                                    Data.userList.get(index).getName() + "," +
-                                    Data.userList.get(index).getAge() + "," +
-                                    Data.userList.get(index).getGender() + "," +
-                                    Data.userList.get(index).getCountry();
-            String currentLine;
-            while((currentLine = reader.readLine()) != null) {
-                // trim newline when comparing with lineToRemove
-                String trimmedLine = currentLine.trim();
-                if(trimmedLine.equals(lineToRemove)) continue;
-                writer.write(currentLine + System.getProperty("line.separator"));
-            }       writer.close();
-            reader.close();
-            boolean successful = tempFile.renameTo(inputFile);
-            System.out.println(successful);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        String tempFile = "src/temp.txt";
+        String filepath = "src/user.txt";
+        File oldFile = new File(filepath);
+        File newFile = new File(tempFile);
+        String currentLine;
+        String data[];
+        try{
+            FileWriter fw = new FileWriter(tempFile,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            
+            FileReader fr = new FileReader(filepath);
+            BufferedReader br = new BufferedReader(fr);
+            
+//                  String lineToRemove = Data.userList.get(index).getId() + "," +
+//                                    Data.userList.get(index).getUsername() + "," +
+//                                    Data.userList.get(index).getPassword() + "," +
+//                                    Data.userList.get(index).getPosition() + "," +
+//                                    Data.userList.get(index).getName() + "," +
+//                                    Data.userList.get(index).getAge() + "," +
+//                                    Data.userList.get(index).getGender() + "," +
+//                                    Data.userList.get(index).getCountry();
+
+            while ((currentLine = br.readLine()) != null){
+                data = currentLine.split(",");
+                if (!(data[0].equals(Data.userList.get(index).getId()))){
+                    pw.println(currentLine);
+                }
+            }
+
+            pw.flush();
+            pw.close();
+            fr.close();
+            br.close();
+            bw.close();
+            fw.close();
+
+            oldFile.delete();
+            File dump = new File(filepath);
+            newFile.renameTo(dump);
+            JOptionPane.showMessageDialog(null, "Successfully deleted");
+            ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+            manageTrainer.setVisible(true);
+            setVisible(false);
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(null, "Failed to delete");
+                    }
+//            File inputFile = new File("src\\user.txt");
+//            File tempFile = new File("src\\tempFile.txt");
+//            
+//            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+//            String lineToRemove = Data.userList.get(index).getId() + "," +
+//                                    Data.userList.get(index).getUsername() + "," +
+//                                    Data.userList.get(index).getPassword() + "," +
+//                                    Data.userList.get(index).getPosition() + "," +
+//                                    Data.userList.get(index).getName() + "," +
+//                                    Data.userList.get(index).getAge() + "," +
+//                                    Data.userList.get(index).getGender() + "," +
+//                                    Data.userList.get(index).getCountry();
+//            String currentLine;
+//            while((currentLine = reader.readLine()) != null) {
+//                // trim newline when comparing with lineToRemove
+//                String trimmedLine = currentLine.trim();
+//                if(trimmedLine.equals(lineToRemove)) continue;
+//                writer.write(currentLine + System.getProperty("line.separator"));
+//            }       
+//            writer.close();
+//            reader.close();
+//            boolean successful = tempFile.renameTo(inputFile);
+//            System.out.println(successful);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

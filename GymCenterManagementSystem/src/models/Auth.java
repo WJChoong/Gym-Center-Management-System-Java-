@@ -3,6 +3,7 @@ package models;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -78,7 +79,7 @@ public class Auth {
         else{
             ID = "US" + num;
         }
-        String data = num_ID + "," + username + "," + password + "," + position + "," + name + "," + age + "," + gender + "," + country;
+        String data = ID + "," + username + "," + password + "," + position + "," + name + "," + age + "," + gender + "," + country;
         outputFile.println(data);
         outputFile.close();
 		
@@ -86,5 +87,36 @@ public class Auth {
     
     public static int removeCharacter(String str, String character) {
     	return Integer.parseInt(str.replace(character, ""));
+    }
+    
+    public static void removeRecord(String filepath, String removeTerm) throws IOException{
+        String tempFile = "src/temp.txt";
+        File oldFile = new File(filepath);
+        File newFile = new File(tempFile);
+        String currentLine;
+        String data[];
+        FileWriter fw = new FileWriter(tempFile,true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+
+        FileReader fr = new FileReader(filepath);
+        BufferedReader br = new BufferedReader(fr);
+        while ((currentLine = br.readLine()) != null){
+            data = currentLine.split(",");
+            if (!(data[0].equals(removeTerm))){
+                pw.println(currentLine);
+            }
+        }
+
+        pw.flush();
+        pw.close();
+        fr.close();
+        br.close();
+        bw.close();
+        fw.close();
+
+        oldFile.delete();
+        File dump = new File(filepath);
+        newFile.renameTo(dump);
     }
 }

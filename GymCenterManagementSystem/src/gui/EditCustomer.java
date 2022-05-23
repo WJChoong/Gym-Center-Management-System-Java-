@@ -5,9 +5,14 @@
  */
 package gui;
 
+import static gui.EditUser.isNumeric;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import models.Data;
 
 /**
@@ -103,7 +108,12 @@ public class EditCustomer extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Female");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] customerId = new String[Data.customerList.size() + 1];
+        customerId[0] = null;
+        for (int i = 1; i < Data.customerList.size() + 1; i++) {
+            customerId[i] = Data.customerList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(customerId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -224,13 +234,12 @@ public class EditCustomer extends javax.swing.JFrame {
             jTextField2.getText().contains(",")) {
             jLabel5.setText("Please do not include ',' symbol in any of your information");
         }else if (jTextField1.getText().isEmpty() ||
-                isNumeric(jTextField4.getText()) ||
-                jTextField5.getText().isEmpty() ||
+                isNumeric(jTextField2.getText()) ||
                 !(jRadioButton1.isSelected() || jRadioButton2.isSelected())){
             jLabel5.setText("Please fill in all the information correctly");
         }else{
             try {
-                String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\user.txt";
+                String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\customer.txt";
                 //Instantiating the Scanner class to read the file
                 Scanner sc = new Scanner(new File(filePath));
                 //instantiating the StringBuffer class
@@ -244,7 +253,7 @@ public class EditCustomer extends javax.swing.JFrame {
                 String oldLine = Data.customerList.get(index).getId() + "," +
                         Data.customerList.get(index).getName() + "," +
                         Data.customerList.get(index).getAge() + "," +
-                        Data.customerList.get(index).getGender()
+                        Data.customerList.get(index).getGender();
 
                 String gender = jRadioButton1.isSelected() ? "M": "F";
                 String newLine = jComboBox1.getSelectedItem().toString() + "," +
@@ -258,8 +267,18 @@ public class EditCustomer extends javax.swing.JFrame {
                 writer.append(fileContents);
                 writer.flush();
                 JOptionPane.showMessageDialog(this, "The information had been updated!");
+                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                manageTrainer.setVisible(true);
+                setVisible(false);
             }catch(IOException e){
-                JOptionPane.showMessageDialog(null, "Failed to update the customer");
+                try {
+                    JOptionPane.showMessageDialog(null, "Failed to update the customer");
+                    ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                    manageTrainer.setVisible(true);
+                    setVisible(false);
+                } catch (IOException ex) {
+                    Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }}
     }//GEN-LAST:event_jButton1ActionPerformed
 

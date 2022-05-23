@@ -208,13 +208,13 @@ public class NewCustomer extends javax.swing.JFrame {
                         String halfID = "0";
                         ID = ID + halfID;
                     }
-                    ID = "US"+ ID + num;
+                    ID = "CS"+ ID + num;
                 }
                 else{
-                    ID = "US" + num;
+                    ID = "CS" + num;
                 }
                 String gender = jRadioButton1.isSelected()? "M": "F";
-                String data = num_ID + "," + jTextField1.getText() + "," + jTextField2.getText() + "," + gender;
+                String data = ID + "," + jTextField1.getText() + "," + jTextField2.getText() + "," + gender;
                 outputFile.println(data);
                 outputFile.close();
             } catch (FileNotFoundException ex) {

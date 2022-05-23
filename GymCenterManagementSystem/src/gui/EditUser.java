@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -312,9 +314,19 @@ public class EditUser extends javax.swing.JFrame {
                 writer.append(fileContents);
                 writer.flush();
                 JOptionPane.showMessageDialog(this, "The information had been updated!");
+                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                manageTrainer.setVisible(true);
+                setVisible(false);
     	}catch(IOException e){
-			JOptionPane.showMessageDialog(null, "Failed to update the user");
-		}}
+                try {
+                    JOptionPane.showMessageDialog(null, "Failed to update the user");
+                    ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                    manageTrainer.setVisible(true);
+                    setVisible(false);
+                } catch (IOException ex) {
+                    Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
