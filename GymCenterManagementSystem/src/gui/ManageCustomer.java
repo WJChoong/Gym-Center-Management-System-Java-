@@ -70,7 +70,9 @@ public class ManageCustomer extends javax.swing.JFrame {
                     rowData[1] = list.get(i).getName();
                     rowData[2] = list.get(i).getAge();
                     rowData[3] = list.get(i).getGender();
-        		}
+        		}else{
+        		    continue;
+                }
         	}else {
         		rowData[0] = list.get(i).getId();
                 rowData[1] = list.get(i).getName();
@@ -181,12 +183,27 @@ public class ManageCustomer extends javax.swing.JFrame {
         );
 
         jButton3.setText("Register New Account");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cancel");
 
         jButton5.setText("Edit Account");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Delete Account");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,6 +260,27 @@ public class ManageCustomer extends javax.swing.JFrame {
     	ManagerAccount account = new ManagerAccount();
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        NewCustomer newCustomer = new NewCustomer();
+        newCustomer.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        EditCustomer editCustomer = new EditCustomer();
+        editCustomer.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        DeleteCustomer deleteCustomer = new DeleteCustomer();
+        deleteCustomer.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

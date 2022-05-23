@@ -5,7 +5,11 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -99,7 +103,12 @@ public class DeleteUser extends javax.swing.JFrame {
         jButton1.setText("Cancel");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -131,8 +140,13 @@ public class DeleteUser extends javax.swing.JFrame {
         jRadioButton4.setText("Male");
 
         jLabel9.setText("                                                 ");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] userId = new String[Data.userList.size() + 1];
+        userId[0] = null;
+        for (int i = 1; i < Data.userList.size() + 1; i++) {
+            System.out.println(Data.userList.get(i-1).getId());
+            userId[i] = Data.userList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(userId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -239,102 +253,72 @@ public class DeleteUser extends javax.swing.JFrame {
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-//    	if(jTextField1.getText().contains(",") || 
-//    		jTextField2.getText().contains(",") || 
-//    		jTextField3.getText().contains(",") || 
-//    		jTextField4.getText().contains(",") || 
-//    		jTextField5.getText().contains(",")) {
-//    		jLabel9.setText("Please do not include ',' symbol in any of your information");
-//    	}else if (jTextField1.getText().isEmpty() || 
-//		    		jTextField2.getText().isEmpty() || 
-//		    		jTextField3.getText().isEmpty() || 
-//		    		jTextField4.getText().isEmpty() ||
-//		    		isNumeric(jTextField4.getText()) ||
-//		    		jTextField5.getText().isEmpty() ||
-//		    		!(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
-//		    		!(jRadioButton3.isSelected() || jRadioButton4.isSelected())){
-//    		jLabel9.setText("Please fill in all the information correctly");
-//    	}else{
-//    		try {
-//        		String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\user.txt";
-//                //Instantiating the Scanner class to read the file
-//                Scanner sc = new Scanner(new File(filePath));
-//                //instantiating the StringBuffer class
-//                StringBuffer buffer = new StringBuffer();
-//                //Reading lines of the file and appending them to StringBuffer
-//                while (sc.hasNextLine()) {
-//                   buffer.append(sc.nextLine()+System.lineSeparator());
-//                }
-//                String fileContents = buffer.toString();
-//                sc.close();
-//                String oldLine = Data.userList.get(index).getId() + "," + 
-//                				Data.userList.get(index).getUsername() + "," + 
-//                				Data.userList.get(index).getPassword() + "," + 
-//                				Data.userList.get(index).getPosition() + "," + 
-//                				Data.userList.get(index).getName() + "," + 
-//                				Data.userList.get(index).getAge() + "," +
-//                				Data.userList.get(index).getGender() + "," +
-//                				Data.userList.get(index).getCountry();
-//                
-//                String position = jRadioButton1.isSelected() ? "M": "T";
-//                String gender = jRadioButton4.isSelected() ? "M": "F";
-//                String newLine = jComboBox1.getSelectedItem().toString() + "," + 
-//                					jTextField1.getText() + "," + 
-//                					jTextField2.getText() + "," + 
-//                					position + "," + 
-//                					jTextField3.getText() + "," + 
-//                					jTextField4.getText() + "," +
-//                					gender + "," +
-//        							jTextField5.getText();
-//                //Replacing the old line with new line
-//                fileContents = fileContents.replaceAll(oldLine, newLine);
-//                //instantiating the FileWriter class
-//                FileWriter writer = new FileWriter(filePath);
-//                writer.append(fileContents);
-//                writer.flush();
-//                JOptionPane.showMessageDialog(this, "The information had been updated!");
-//    	}catch(IOException e){
-//			JOptionPane.showMessageDialog(null, "Failed to update the user");
-//		}}
+        BufferedReader reader = null;
+        try {
+            // TODO add your handling code here:
+            File inputFile = new File("src\\user.txt");
+            File tempFile = new File("src\\myTempFile.txt");
+            reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            String lineToRemove = Data.userList.get(index).getId() + "," +
+                                    Data.userList.get(index).getUsername() + "," +
+                                    Data.userList.get(index).getPassword() + "," +
+                                    Data.userList.get(index).getPosition() + "," +
+                                    Data.userList.get(index).getName() + "," +
+                                    Data.userList.get(index).getAge() + "," +
+                                    Data.userList.get(index).getGender() + "," +
+                                    Data.userList.get(index).getCountry();
+            String currentLine;
+            while((currentLine = reader.readLine()) != null) {
+                // trim newline when comparing with lineToRemove
+                String trimmedLine = currentLine.trim();
+                if(trimmedLine.equals(lineToRemove)) continue;
+                writer.write(currentLine + System.getProperty("line.separator"));
+            }       writer.close();
+            reader.close();
+            boolean successful = tempFile.renameTo(inputFile);
+            System.out.println(successful);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     	String value = jComboBox1.getSelectedItem().toString();
-//    	if (value == null) {
-//    		jTextField1.setText("");
-//    		jTextField2.setText("");
-//    		jTextField3.setText("");
-//    		jTextField4.setText("");
-//    		jTextField5.setText("");
-//    		jRadioButton1.setSelected(false);
-//    		jRadioButton2.setSelected(false);
-//    		jRadioButton3.setSelected(false);
-//    		jRadioButton4.setSelected(false);
-//    		
-//    	}else {
-//    		for (int i = 0; i < Data.userList.size(); i++) {
-//    			if (Data.userList.get(i).getId().equals(value)) {
-//    				index = i;
-//    				jTextField1.setText(Data.userList.get(i).getUsername());
-//    	    		jTextField2.setText(Data.userList.get(i).getPassword());
-//    	    		jTextField3.setText(Data.userList.get(i).getName());
-//    	    		jTextField4.setText(Data.userList.get(i).getCountry());
-//    	    		jTextField5.setText(Data.userList.get(i).getAge());
-//    	    		if (Data.userList.get(i).getPosition().equals("M")){
-//    	    			jRadioButton1.setSelected(true);
-//    	    		}else{
-//    	    			jRadioButton2.setSelected(true);
-//	    			}
-//    	    		if (Data.userList.get(i).getGender().equals("M")){
-//    	    			jRadioButton4.setSelected(true);
-//    	    		}else{
-//    	    			jRadioButton3.setSelected(true);
-//	    			}
-//    			}
-//    		}
-//    	}
+    	if (value == null) {
+    		jLabel1.setText("");
+    		jLabel13.setText("");
+    		jLabel14.setText("");
+    		jLabel15.setText("");
+    		jRadioButton1.setSelected(false);
+    		jRadioButton2.setSelected(false);
+    		jRadioButton3.setSelected(false);
+    		jRadioButton4.setSelected(false);
+    		
+    	}else {
+            for (int i = 0; i < Data.userList.size(); i++) {
+                if (Data.userList.get(i).getId().equals(value)) {
+                    index = i;
+                    jLabel11.setText(Data.userList.get(i).getUsername());
+                    jLabel13.setText(Data.userList.get(i).getName());
+                    jLabel14.setText(Data.userList.get(i).getAge());
+                    jLabel15.setText(Data.userList.get(i).getCountry());
+                    if (Data.userList.get(i).getPosition().equals("M")){
+                        jRadioButton1.setSelected(true);
+                    }else{
+                        jRadioButton2.setSelected(true);
+                    }
+                    if (Data.userList.get(i).getGender().equals("M")){
+                        jRadioButton4.setSelected(true);
+                    }else{
+                        jRadioButton3.setSelected(true);
+                    }
+                }
+            }
+    	}
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**

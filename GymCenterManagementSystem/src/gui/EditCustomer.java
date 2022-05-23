@@ -5,26 +5,21 @@
  */
 package gui;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static models.Auth.removeCharacter;
+import models.Data;
 
 /**
  *
  * @author User
  */
-public class NewCustomer extends javax.swing.JFrame {
-
+public class EditCustomer extends javax.swing.JFrame {
+    int index;
     /**
      * Creates new form NewCustomer
      */
-    public NewCustomer() {
+    public EditCustomer() {
         initComponents();
     }
 
@@ -49,6 +44,7 @@ public class NewCustomer extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,7 +103,14 @@ public class NewCustomer extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Female");
 
-        jLabel5.setText("                                             ");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("                                                     ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,25 +118,31 @@ public class NewCustomer extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel5)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,23 +150,26 @@ public class NewCustomer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -171,59 +183,29 @@ public class NewCustomer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        jLabel5.setText("                                         ");
-        if (jTextField1.getText().isEmpty() ||
-            !(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
-            jTextField2.getText().isEmpty()){
-            jLabel5.setText("Please fill in all the information correctly");
-        }else{
-            try {
-                String filename = "src\\customer.txt";
-                File file = new File(filename);
-                Scanner inputFile = new Scanner(file);
-                // Read lines from the file until no more are left.
-                int num = 0;
-                while (inputFile.hasNext())
-                {
-                    // Read the next line.
-                    String data = inputFile.nextLine();
-                    
-                    // Split the line by using the delimiter ":" (semicolon) and store into array.
-                    String[] details = data.split(",");
-                    int ID = removeCharacter(details[0], "CS");
-                    if (ID > num){
-                        num = ID;
+        String value = jComboBox1.getSelectedItem().toString();
+        if (value == null) {
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jRadioButton1.setSelected(false);
+            jRadioButton2.setSelected(false);
+        }else {
+            for (int i = 0; i < Data.customerList.size(); i++) {
+                if (Data.customerList.get(i).getId().equals(value)) {
+                    index = i;
+                    jTextField1.setText(Data.userList.get(i).getUsername());
+                    jTextField2.setText(Data.userList.get(i).getPassword());
+                    if (Data.userList.get(i).getPosition().equals("M")){
+                        jRadioButton1.setSelected(true);
+                    }else{
+                        jRadioButton2.setSelected(true);
                     }
                 }
-                inputFile.close(); // Close the file
-                FileWriter fw = new FileWriter(filename, true);
-                PrintWriter outputFile = new PrintWriter(fw);
-                num ++;
-                String num_ID = String.valueOf(num);
-                String ID = "0";
-                if (num_ID.length() < 5){
-                    for (int i = 0; i < (5-num_ID.length()); i++){
-                        String halfID = "0";
-                        ID = ID + halfID;
-                    }
-                    ID = "US"+ ID + num;
-                }
-                else{
-                    ID = "US" + num;
-                }
-                String gender = jRadioButton1.isSelected()? "M": "F";
-                String data = num_ID + "," + jTextField1.getText() + "," + jTextField2.getText() + "," + gender;
-                outputFile.println(data);
-                outputFile.close();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
@@ -232,9 +214,54 @@ public class NewCustomer extends javax.swing.JFrame {
             manageCustomer.setVisible(true);
             setVisible(false);
         } catch (IOException ex) {
-            Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(jTextField1.getText().contains(",") ||
+            jTextField2.getText().contains(",")) {
+            jLabel5.setText("Please do not include ',' symbol in any of your information");
+        }else if (jTextField1.getText().isEmpty() ||
+                isNumeric(jTextField4.getText()) ||
+                jTextField5.getText().isEmpty() ||
+                !(jRadioButton1.isSelected() || jRadioButton2.isSelected())){
+            jLabel5.setText("Please fill in all the information correctly");
+        }else{
+            try {
+                String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\user.txt";
+                //Instantiating the Scanner class to read the file
+                Scanner sc = new Scanner(new File(filePath));
+                //instantiating the StringBuffer class
+                StringBuffer buffer = new StringBuffer();
+                //Reading lines of the file and appending them to StringBuffer
+                while (sc.hasNextLine()) {
+                    buffer.append(sc.nextLine()+System.lineSeparator());
+                }
+                String fileContents = buffer.toString();
+                sc.close();
+                String oldLine = Data.customerList.get(index).getId() + "," +
+                        Data.customerList.get(index).getName() + "," +
+                        Data.customerList.get(index).getAge() + "," +
+                        Data.customerList.get(index).getGender()
+
+                String gender = jRadioButton1.isSelected() ? "M": "F";
+                String newLine = jComboBox1.getSelectedItem().toString() + "," +
+                        jTextField1.getText() + "," +
+                        jTextField2.getText() + "," +
+                        gender;
+                //Replacing the old line with new line
+                fileContents = fileContents.replaceAll(oldLine, newLine);
+                //instantiating the FileWriter class
+                FileWriter writer = new FileWriter(filePath);
+                writer.append(fileContents);
+                writer.flush();
+                JOptionPane.showMessageDialog(this, "The information had been updated!");
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(null, "Failed to update the customer");
+            }}
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,20 +280,21 @@ public class NewCustomer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewCustomer().setVisible(true);
+                new EditCustomer().setVisible(true);
             }
         });
     }
@@ -275,6 +303,7 @@ public class NewCustomer extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

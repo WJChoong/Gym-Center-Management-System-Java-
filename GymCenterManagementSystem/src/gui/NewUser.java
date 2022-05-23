@@ -216,40 +216,43 @@ public class NewUser extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
     	ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-		manageTrainer.setVisible(true);
-		setVisible(false);
+        manageTrainer.setVisible(true);
+        setVisible(false);
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     	if(jTextField1.getText().contains(",") || 
-    		jTextField2.getText().contains(",") || 
-    		jTextField3.getText().contains(",") || 
-    		jTextField4.getText().contains(",") || 
-    		jTextField5.getText().contains(",")) {
-    		jLabel9.setText("Please do not include ',' symbol in any of your information");
+            jTextField2.getText().contains(",") || 
+            jTextField3.getText().contains(",") || 
+            jTextField4.getText().contains(",") || 
+            jTextField5.getText().contains(",")) {
+            jLabel9.setText("Please do not include ',' symbol in any of your information");
     	}else if (jTextField1.getText().isEmpty() || 
-		    		jTextField2.getText().isEmpty() || 
-		    		jTextField3.getText().isEmpty() || 
-		    		jTextField4.getText().isEmpty() ||
-		    		isNumeric(jTextField4.getText()) ||
-		    		jTextField5.getText().isEmpty() ||
-		    		!(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
-		    		!(jRadioButton3.isSelected() || jRadioButton4.isSelected())){
-    		jLabel9.setText("Please fill in all the information correctly");
+            jTextField2.getText().isEmpty() || 
+            jTextField3.getText().isEmpty() || 
+            jTextField4.getText().isEmpty() ||
+            isNumeric(jTextField5.getText()) ||
+            jTextField5.getText().isEmpty() ||
+            !(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
+            !(jRadioButton3.isSelected() || jRadioButton4.isSelected())){
+            jLabel9.setText("Please fill in all the information correctly");
     	}else{
-    		try {
-				Auth.register(jTextField1.getText(),
-						jTextField2.getText(), 
-						jRadioButton1.isSelected()? "M": "T",
-						jTextField3.getText(),
-						jTextField4.getText(), 
-						jRadioButton3.isSelected()? "F": "M", 
-						jTextField5.getText());
-				JOptionPane.showMessageDialog(null, "Successfully register new user");
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Failed to register new user");
-			}
+            try {
+                Auth.register(jTextField1.getText(),
+                                jTextField2.getText(), 
+                                jRadioButton1.isSelected()? "M": "T",
+                                jTextField3.getText(),
+                                jTextField5.getText(), 
+                                jRadioButton3.isSelected()? "F": "M", 
+                                jTextField4.getText());
+                JOptionPane.showMessageDialog(null, "Successfully register new user");
+                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                manageTrainer.setVisible(true);
+                setVisible(false);
+            } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Failed to register new user");
+            }
     	}
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -292,12 +295,13 @@ public class NewUser extends javax.swing.JFrame {
         if (strNum == null) {
             return false;
         }
-        try {
-            double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
+        Boolean status = true;
+        for (int i = 0; i < strNum.length(); i++){
+            if (!Character.isDigit(strNum.charAt(i))){
+                status = false;
+            }
         }
-        return true;
+        return status;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

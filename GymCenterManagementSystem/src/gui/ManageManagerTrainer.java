@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
@@ -68,31 +70,33 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         Data.userList = list;
         for(int i = 0; i < list.size(); i++)
         {
-        	Object rowData[] = new Object[6];
-        	if (jTextField1.getText().length() > 0){
-        		String keyword = jTextField1.getText();
-        		if (list.get(i).getId().contains(keyword) ||
-    				list.get(i).getName().contains(keyword) ||
-	                list.get(i).getPosition().contains(keyword) ||
-	                list.get(i).getAge().contains(keyword) ||
-	                list.get(i).getGender().contains(keyword) ||
-	                list.get(i).getCountry().contains(keyword)
+            Object rowData[] = new Object[6];
+            if (jTextField1.getText().length() > 0){
+                String keyword = jTextField1.getText();
+                if (list.get(i).getId().contains(keyword) ||
+                    list.get(i).getName().contains(keyword) ||
+                    list.get(i).getPosition().contains(keyword) ||
+                    list.get(i).getAge().contains(keyword) ||
+                    list.get(i).getGender().contains(keyword) ||
+                    list.get(i).getCountry().contains(keyword)
                 ) {
-        			rowData[0] = list.get(i).getId();
+                    rowData[0] = list.get(i).getId();
                     rowData[1] = list.get(i).getName();
                     rowData[2] = list.get(i).getPosition();
                     rowData[3] = list.get(i).getAge();
                     rowData[4] = list.get(i).getGender();
                     rowData[5] = list.get(i).getCountry();
-        		}
-        	}else {
-        		rowData[0] = list.get(i).getId();
+                }else{
+                    continue;
+                }
+            }else {
+                rowData[0] = list.get(i).getId();
                 rowData[1] = list.get(i).getName();
                 rowData[2] = list.get(i).getPosition();
                 rowData[3] = list.get(i).getAge();
                 rowData[4] = list.get(i).getGender();
                 rowData[5] = list.get(i).getCountry();
-        	}
+            }
             model.addRow(rowData);
         }
                 
@@ -218,6 +222,11 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         });
 
         jButton5.setText("Delete Account");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -295,6 +304,13 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        DeleteUser deleteUser = new DeleteUser();
+        deleteUser.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,11 +342,11 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-					new ManageManagerTrainer().setVisible(true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                    new ManageManagerTrainer().setVisible(true);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
     }

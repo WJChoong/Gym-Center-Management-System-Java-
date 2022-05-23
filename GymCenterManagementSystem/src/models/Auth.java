@@ -50,10 +50,8 @@ public class Auth {
         Scanner inputFile = new Scanner(file);
         // Read lines from the file until no more are left.
         int num = 0;
-        System.out.println("here");
         while (inputFile.hasNext())
         {
-        	System.out.println("loop");
             // Read the next line.
             String data = inputFile.nextLine();
             
@@ -64,13 +62,22 @@ public class Auth {
                 num = ID;
             }
         }   
-        System.out.println("here");
         inputFile.close(); // Close the file
         FileWriter fw = new FileWriter(filename, true);
         PrintWriter outputFile = new PrintWriter(fw);
         num ++;
-        String num_ID = "US" + String.valueOf(num);
-        System.out.println("there");
+        String num_ID = String.valueOf(num);
+        String ID = "0";
+        if (num_ID.length() < 5){
+            for (int i = 0; i < (5-num_ID.length()); i++){
+                String halfID = "0";
+                ID = ID + halfID;
+            }
+            ID = "US"+ ID + num;
+        }
+        else{
+            ID = "US" + num;
+        }
         String data = num_ID + "," + username + "," + password + "," + position + "," + name + "," + age + "," + gender + "," + country;
         outputFile.println(data);
         outputFile.close();
