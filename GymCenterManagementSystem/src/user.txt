@@ -1,2 +1,3 @@
-US00001,Alice Chin,Chin89190h,M
-US00002,Alice Chin,Chin89190h,M
+US00001,AliceChin,Chin89190h,M,Alice,25,M,Singapore
+US00002,baRry,Chin89190h,T,Barry,25,M,Malaysia
+3,Hello,Byebye,M,Ben,ca,M,Sg

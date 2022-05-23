@@ -5,6 +5,17 @@
  */
 package gui;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+import models.Auth;
+import models.Data;
+
 /**
  *
  * @author User
@@ -65,25 +76,30 @@ public class UpdateProfile extends javax.swing.JFrame {
 
         jLabel2.setText("Trainer User ID (Cannot Edit)");
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText(Data.user != null ? Data.user.getId(): "                              ");
 
         jLabel4.setText("Name");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText(Data.user != null ? Data.user.getName(): "");
 
         jLabel5.setText("Age");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText(Data.user != null ? Data.user.getAge(): "");
 
         jLabel6.setText("Gender");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setText(Data.user != null ? Data.user.getGender(): "");
 
         jLabel7.setText("Country");
 
-        jTextField4.setText("jTextField3");
+        jTextField4.setText(Data.user != null ? Data.user.getCountry(): "");
 
         jButton1.setText("Save Changes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
 
@@ -155,6 +171,49 @@ public class UpdateProfile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_jButton1ActionPerformed
+    	try {
+    		String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\user.txt";
+            //Instantiating the Scanner class to read the file
+            Scanner sc = new Scanner(new File(filePath));
+            //instantiating the StringBuffer class
+            StringBuffer buffer = new StringBuffer();
+            //Reading lines of the file and appending them to StringBuffer
+            while (sc.hasNextLine()) {
+               buffer.append(sc.nextLine()+System.lineSeparator());
+            }
+            String fileContents = buffer.toString();
+            sc.close();
+            String oldLine = Data.user.getId() + "," + 
+            				Data.user.getUsername() + "," + 
+            				Data.user.getPassword() + "," + 
+            				Data.user.getPosition() + "," + 
+            				Data.user.getName() + "," + 
+            				Data.user.getAge() + "," +
+            				Data.user.getGender() + "," +
+            				Data.user.getCountry();
+            String newLine = Data.user.getId() + "," + 
+    						Data.user.getUsername() + "," + 
+    						Data.user.getPassword() + "," + 
+    						Data.user.getPosition() + "," + 
+    						jTextField1.getText() + "," + 
+    						jTextField2.getText() + "," +
+    						jTextField3.getText() + "," +
+    						jTextField4.getText();
+            //Replacing the old line with new line
+            fileContents = fileContents.replaceAll(oldLine, newLine);
+            //instantiating the FileWriter class
+            FileWriter writer = new FileWriter(filePath);
+            writer.append(fileContents);
+            writer.flush();
+            JOptionPane.showMessageDialog(this, "Your information had been updated!");
+            TrainerAccount account = new TrainerAccount();
+            setVisible(false);
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(this, "Failed to update individual information!");
+    	}
+    }
 
     /**
      * @param args the command line arguments
