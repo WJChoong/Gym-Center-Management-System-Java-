@@ -17,11 +17,13 @@ public class ManagerAccount extends JFrame implements ActionListener{
         		setVisible(false);
 				Data.user = null;
         	}else if(a.getSource() == btn5) {
-//        		manageCustomer.setVisible(true);
-//        		setVisible(false);
+        		StatisticalReport statisticalReport = new StatisticalReport();
+        		statisticalReport.setVisible(true);
+        		setVisible(false);
         	}else if(a.getSource() == btn4) {
-//        		manageCustomer.setVisible(true);
-//        		setVisible(false);
+        		PaymentFeedbackAnalysis paymentFeedbackAnalysis = new PaymentFeedbackAnalysis();
+        		paymentFeedbackAnalysis.setVisible(true);
+        		setVisible(false);
         	}else if(a.getSource() == btn3) {
         		ManageAppointment manageAppointment = new ManageAppointment();
         		manageAppointment.setVisible(true);

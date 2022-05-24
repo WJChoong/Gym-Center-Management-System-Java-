@@ -209,7 +209,7 @@ public class NewAppointment extends javax.swing.JFrame {
                 jLabel7.setText("Please fill in all the information correctly");
         	}else{
         		try {
-                    String filename = "src\\customer.txt";
+                    String filename = "src\\appointment.txt";
                     File file = new File(filename);
                     Scanner inputFile = new Scanner(file);
                     // Read lines from the file until no more are left.

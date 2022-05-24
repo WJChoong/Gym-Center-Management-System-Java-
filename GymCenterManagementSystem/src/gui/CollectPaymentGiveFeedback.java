@@ -5,6 +5,17 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
+
+import models.Appointment;
+import models.Auth;
+import models.Data;
+
 /**
  *
  * @author MJ Lee
@@ -13,11 +24,70 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
 
     /**
      * Creates new form CollectPaymentGiveFeedback
+     * @throws IOException 
      */
-    public CollectPaymentGiveFeedback() {
+    public CollectPaymentGiveFeedback() throws IOException {
         initComponents();
+        addRowToJTable();
     }
-
+    
+    private ArrayList ListAppointments() throws IOException
+    {
+        ArrayList<Appointment> list = new ArrayList<Appointment>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
+    	String data = null;
+    	while((data=reader.readLine()) != null) {
+    		String[] rawData = data.split(",") ;
+    		Appointment appointment = new Appointment();
+    		appointment.setId(rawData[0]);
+    		appointment.setTrainerId(rawData[1]);
+    		appointment.setCustomerId(rawData[2]);
+    		appointment.setDate(rawData[3]);
+    		appointment.setTime(rawData[4]);
+    		appointment.setDuration(rawData[5]);
+            list.add(appointment);
+    	}
+    	reader.close();
+        return list;
+    }
+    
+    private void addRowToJTable() throws IOException
+    {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        ArrayList<Appointment> list = ListAppointments();
+        Data.appointmentList = list;
+        for(int i = 0; i < list.size(); i++)
+        {
+        	Object rowData[] = new Object[6];
+//        	if (jTextField1.getText().length() > 0){
+//        		String keyword = jTextField1.getText();
+//        		if (list.get(i).getId().contains(keyword) ||
+//    				list.get(i).getTrainerId().contains(keyword) ||
+//	                list.get(i).getCustomerId().contains(keyword) ||
+//	                list.get(i).getDate().contains(keyword) ||
+//	                list.get(i).getTime().contains(keyword) ||
+//	                list.get(i).getDuration().contains(keyword)
+//                ) {
+//        			rowData[0] = list.get(i).getId();
+//                    rowData[1] = list.get(i).getTrainerId();
+//                    rowData[2] = list.get(i).getCustomerId();
+//                    rowData[3] = list.get(i).getDate();
+//                    rowData[4] = list.get(i).getTime();
+//                    rowData[5] = list.get(i).getDuration();
+//        		}
+//        	}else {
+        		rowData[0] = list.get(i).getId();
+                rowData[1] = list.get(i).getTrainerId();
+                rowData[2] = list.get(i).getCustomerId();
+                rowData[3] = list.get(i).getDate();
+                rowData[4] = list.get(i).getTime();
+                rowData[5] = list.get(i).getCost();
+//        	}
+            model.addRow(rowData);
+        }
+                
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,6 +101,8 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,19 +110,42 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Appointment ID", "Payment (RM)", "Status", "Functions"
+                "Appointment ID", "Trainer ID", "Customer ID", "Date", "Time", "Payment (RM)"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Close");
+        jButton1.setText("Payment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Feedback");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,9 +158,13 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,13 +173,37 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Payment payment = new Payment();
+        payment.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Feedback feedback = new Feedback();
+        feedback.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        TrainerAccount account = new TrainerAccount();
+        account.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,13 +235,20 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CollectPaymentGiveFeedback().setVisible(true);
+                try {
+					new CollectPaymentGiveFeedback().setVisible(true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

@@ -150,7 +150,6 @@ public class EditUser extends javax.swing.JFrame {
         String[] userId = new String[Data.userList.size() + 1];
         userId[0] = null; 
         for (int i = 1; i < Data.userList.size() + 1; i++) {
-        	System.out.println(Data.userList.get(i-1).getId());
         	userId[i] = Data.userList.get(i-1).getId();
         }
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(userId));

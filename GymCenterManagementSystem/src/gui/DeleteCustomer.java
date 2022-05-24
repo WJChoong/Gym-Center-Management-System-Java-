@@ -88,7 +88,12 @@ public class DeleteCustomer extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] customerId = new String[Data.customerList.size() + 1];
+        customerId[0] = null;
+        for (int i = 1; i < Data.customerList.size() + 1; i++) {
+        	customerId[i] = Data.customerList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(customerId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -190,7 +195,7 @@ public class DeleteCustomer extends javax.swing.JFrame {
             jLabel6.setText("");
             jLabel7.setText("");    		
     	}else {
-            for (int i = 0; i < Data.userList.size(); i++) {
+            for (int i = 0; i < Data.customerList.size(); i++) {
                 if (Data.customerList.get(i).getId().equals(value)) {
                     index = i;
                     jLabel5.setText(Data.customerList.get(i).getName());

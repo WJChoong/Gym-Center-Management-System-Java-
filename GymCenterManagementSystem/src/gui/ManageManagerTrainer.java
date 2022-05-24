@@ -39,7 +39,6 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
     
     private ArrayList ListUsers() throws IOException
     {
-//    	buttonList.clear();
         ArrayList<User> list = new ArrayList<User>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
     	String data = null;
@@ -56,7 +55,6 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
             user.setPassword(rawData[2]);
             user.setUsername(rawData[1]);
             list.add(user);
-//                buttonList.add(new JButton("Edit" + rawData[0]));
     	}
     	reader.close();
         return list;

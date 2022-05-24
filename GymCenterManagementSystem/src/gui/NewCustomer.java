@@ -223,6 +223,9 @@ public class NewCustomer extends javax.swing.JFrame {
                 String data = ID + "," + jTextField1.getText() + "," + jTextField2.getText() + "," + gender;
                 outputFile.println(data);
                 outputFile.close();
+                ManageCustomer manageCustomer = new ManageCustomer();
+                manageCustomer.setVisible(true);
+                setVisible(false);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

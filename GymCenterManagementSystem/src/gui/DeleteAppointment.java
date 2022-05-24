@@ -100,7 +100,12 @@ public class DeleteAppointment extends javax.swing.JFrame {
 
         jLabel7.setText("                                        ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] appointmentId = new String[Data.appointmentList.size() + 1];
+        appointmentId[0] = null;
+        for (int i = 1; i < Data.appointmentList.size() + 1; i++) {
+        	appointmentId[i] = Data.appointmentList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(appointmentId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

@@ -19,8 +19,15 @@ public class TrainerAccount  extends JFrame implements ActionListener{
 			}else if(a.getSource() == btn1) {
 				UpdateProfile profile = new UpdateProfile();
 				profile.setVisible(true);
-				System.out.println("1");
 				setVisible(false);
+			}else if(a.getSource() == btn2) {
+				ManageIndividualAppointment manageAppointment = new ManageIndividualAppointment();
+				manageAppointment.setVisible(true);
+				setVisible(false);
+			}else if(a.getSource() == btn3) {
+				CollectPaymentGiveFeedback paymentFeedback = new CollectPaymentGiveFeedback();
+        		paymentFeedback.setVisible(true);
+        		setVisible(false);
 			}
 		}catch(Exception e) {
 			
@@ -37,6 +44,8 @@ public class TrainerAccount  extends JFrame implements ActionListener{
 		internalGUI();
 		btnExit.addActionListener(this);
 		btn1.addActionListener(this);
+		btn2.addActionListener(this);
+		btn3.addActionListener(this);
 		
 		setVisible(true);
 	}

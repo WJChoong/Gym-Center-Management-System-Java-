@@ -7,6 +7,8 @@ public class Appointment {
 	private String date;
 	private String time;
 	private String duration;
+	private int cost;
+	
 	public String getId() {
 		return id;
 	}
@@ -42,5 +44,12 @@ public class Appointment {
 	}
 	public void setDuration(String duration) {
 		this.duration = duration;
+		setCost(Integer.parseInt(duration) * 10);
+	}
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 }

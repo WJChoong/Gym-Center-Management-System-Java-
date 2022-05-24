@@ -10,7 +10,7 @@ import models.User;
 public class LoginPage extends JFrame implements ActionListener{
     private Label lblTitle, lblUser, lblPass, lblMessage;
     private TextField txtUser, txtPass;
-    private Button btnLogin, btnForget, btnRegister;
+    private Button btnLogin;
     private String username, password;
     
 	public LoginPage() {
@@ -22,8 +22,6 @@ public class LoginPage extends JFrame implements ActionListener{
 
         internalGUI();
         btnLogin.addActionListener(this);
-        btnForget.addActionListener(this);
-        btnRegister.addActionListener(this);
 	
         setVisible(true);	
 	}
@@ -82,14 +80,8 @@ public class LoginPage extends JFrame implements ActionListener{
             lblMessage.setFont(new Font("Verdana", Font.PLAIN, 15));
             pMessage.add(lblMessage); 
 
-            btnRegister = new Button("Register");
-            btnRegister.setFont(new Font("Verdana", Font.PLAIN, 15));
-            pButton.add(btnRegister);
             btnLogin = new Button("Login");
             btnLogin.setFont(new Font("Verdana", Font.PLAIN, 15));
             pButton.add(btnLogin); 
-            btnForget = new Button("Forget Password");
-            btnForget.setFont(new Font("Verdana", Font.PLAIN, 15));
-            pButton.add(btnForget); 
 	}
 }
