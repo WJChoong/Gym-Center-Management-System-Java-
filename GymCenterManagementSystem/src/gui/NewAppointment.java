@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import models.Auth;
+import models.Data;
 
 /**
  *
@@ -205,7 +206,7 @@ public class NewAppointment extends javax.swing.JFrame {
                 jTextField4.getText().isEmpty() ||
                 isNumeric(jTextField5.getText()) ||
                 jTextField5.getText().isEmpty() ||
-                isNumeric(jTextField4.getText())){
+                !isNumeric(jTextField4.getText())){
                 jLabel7.setText("Please fill in all the information correctly");
         	}else{
         		try {
@@ -247,6 +248,15 @@ public class NewAppointment extends javax.swing.JFrame {
                     				jTextField4.getText() + "," + jTextField5.getText();
                     outputFile.println(data);
                     outputFile.close();
+                    if (Data.user.getPosition().equals("M")) {
+                		ManageAppointment manageAppointment = new ManageAppointment();
+                        manageAppointment.setVisible(true);
+                        setVisible(false);
+                	}else if(Data.user.getPosition().equals("T")) {
+                		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+                		manageIndividualAppointment.setVisible(true);
+                        setVisible(false);
+                	}
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -258,9 +268,16 @@ public class NewAppointment extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             // TODO add your handling code here:
-            ManageAppointment manageAppointment = new ManageAppointment();
-            manageAppointment.setVisible(true);
-            setVisible(false);
+        	if (Data.user.getPosition().equals("M")) {
+        		ManageAppointment manageAppointment = new ManageAppointment();
+                manageAppointment.setVisible(true);
+                setVisible(false);
+        	}else if(Data.user.getPosition().equals("T")) {
+        		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+        		manageIndividualAppointment.setVisible(true);
+                setVisible(false);
+        	}
+            
         } catch (IOException ex) {
             Logger.getLogger(NewAppointment.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -197,9 +197,15 @@ public class DeleteAppointment extends javax.swing.JFrame {
              String id = Data.appointmentList.get(index).getId();
              Auth.removeRecord("src/appointment.txt", id);
              JOptionPane.showMessageDialog(null, "Successfully deleted");
-             ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-             manageTrainer.setVisible(true);
-             setVisible(false);
+             if (Data.user.getPosition().equals("M")) {
+         		ManageAppointment manageAppointment = new ManageAppointment();
+                 manageAppointment.setVisible(true);
+                 setVisible(false);
+         	}else if(Data.user.getPosition().equals("T")) {
+         		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+         		manageIndividualAppointment.setVisible(true);
+                 setVisible(false);
+         	}
          }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Failed to delete record");
          }
@@ -209,9 +215,15 @@ public class DeleteAppointment extends javax.swing.JFrame {
         // TODO add your handling code here:
     	try {
             // TODO add your handling code here:
-            ManageCustomer manageCustomer = new ManageCustomer();
-            manageCustomer.setVisible(true);
-            setVisible(false);
+    		if (Data.user.getPosition().equals("M")) {
+        		ManageAppointment manageAppointment = new ManageAppointment();
+                manageAppointment.setVisible(true);
+                setVisible(false);
+        	}else if(Data.user.getPosition().equals("T")) {
+        		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+        		manageIndividualAppointment.setVisible(true);
+                setVisible(false);
+        	}
         } catch (IOException ex) {
             Logger.getLogger(DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -123,9 +123,17 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
 
         jLabel1.setText("Manage Individual Appointment");
 
-        jTextField1.setText("jTextField1");
-
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -226,6 +234,11 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
         account.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    	addRowToJTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

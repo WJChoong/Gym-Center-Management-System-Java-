@@ -102,7 +102,12 @@ public class EditAppointment extends javax.swing.JFrame {
         jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                try {
+					jButton2ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -218,23 +223,36 @@ public class EditAppointment extends javax.swing.JFrame {
             writer.append(fileContents);
             writer.flush();
             JOptionPane.showMessageDialog(this, "The information had been updated!");
-            ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-            manageTrainer.setVisible(true);
-            setVisible(false);
+            if (Data.user.getPosition().equals("M")) {
+        		ManageAppointment manageAppointment = new ManageAppointment();
+                manageAppointment.setVisible(true);
+                setVisible(false);
+        	}else if(Data.user.getPosition().equals("T")) {
+        		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+        		manageIndividualAppointment.setVisible(true);
+                setVisible(false);
+        	}
         }catch(IOException e){
             try {
                 JOptionPane.showMessageDialog(null, "Failed to update the customer");
-                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-                manageTrainer.setVisible(true);
-                setVisible(false);
+                
             } catch (IOException ex) {
                 Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    	if (Data.user.getPosition().equals("M")) {
+    		ManageAppointment manageAppointment = new ManageAppointment();
+            manageAppointment.setVisible(true);
+            setVisible(false);
+    	}else if(Data.user.getPosition().equals("T")) {
+    		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+    		manageIndividualAppointment.setVisible(true);
+            setVisible(false);
+    	}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -205,8 +205,8 @@ public class EditCustomer extends javax.swing.JFrame {
             for (int i = 0; i < Data.customerList.size(); i++) {
                 if (Data.customerList.get(i).getId().equals(value)) {
                     index = i;
-                    jTextField1.setText(Data.userList.get(i).getUsername());
-                    jTextField2.setText(Data.userList.get(i).getPassword());
+                    jTextField1.setText(Data.userList.get(i).getName());
+                    jTextField2.setText(Data.userList.get(i).getAge());
                     if (Data.userList.get(i).getPosition().equals("M")){
                         jRadioButton1.setSelected(true);
                     }else{
