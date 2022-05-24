@@ -269,7 +269,7 @@ public class EditUser extends javax.swing.JFrame {
 		    		jTextField2.getText().isEmpty() || 
 		    		jTextField3.getText().isEmpty() || 
 		    		jTextField4.getText().isEmpty() ||
-		    		isNumeric(jTextField4.getText()) ||
+		    		!isNumeric(jTextField4.getText()) ||
 		    		jTextField5.getText().isEmpty() ||
 		    		!(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
 		    		!(jRadioButton3.isSelected() || jRadioButton4.isSelected())){
