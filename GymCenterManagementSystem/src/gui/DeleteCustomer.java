@@ -49,7 +49,7 @@ public class DeleteCustomer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Register New Customer Account");
+        jLabel1.setText("Delete Customer Account");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,12 +88,7 @@ public class DeleteCustomer extends javax.swing.JFrame {
             }
         });
 
-        String[] customerId = new String[Data.customerList.size() + 1];
-        customerId[0] = null;
-        for (int i = 1; i < Data.customerList.size() + 1; i++) {
-        	customerId[i] = Data.customerList.get(i-1).getId();
-        }
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(customerId));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

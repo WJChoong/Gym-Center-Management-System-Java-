@@ -114,7 +114,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Register New Customer Account"/>
+            <Property name="text" type="java.lang.String" value="Delete Customer Account"/>
           </Properties>
         </Component>
       </SubComponents>
