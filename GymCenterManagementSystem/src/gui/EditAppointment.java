@@ -235,7 +235,9 @@ public class EditAppointment extends javax.swing.JFrame {
         }catch(IOException e){
             try {
                 JOptionPane.showMessageDialog(null, "Failed to update the customer");
-                
+                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+                manageTrainer.setVisible(true);
+                setVisible(false);
             } catch (IOException ex) {
                 Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
