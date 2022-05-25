@@ -88,7 +88,12 @@ public class DeleteCustomer extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] customerId = new String[Data.customerList.size() + 1];
+        customerId[0] = null;
+        for (int i = 1; i < Data.customerList.size() + 1; i++) {
+        	customerId[i] = Data.customerList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(customerId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -174,9 +179,9 @@ public class DeleteCustomer extends javax.swing.JFrame {
             String id = Data.customerList.get(index).getId();
             Auth.removeRecord("src/customer.txt", id);
             JOptionPane.showMessageDialog(null, "Successfully deleted");
-            ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-            manageTrainer.setVisible(true);
-            setVisible(false);
+            ManageCustomer manageCustomer = new ManageCustomer();
+    		manageCustomer.setVisible(true);
+    		setVisible(false);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Failed to delete record");
         }

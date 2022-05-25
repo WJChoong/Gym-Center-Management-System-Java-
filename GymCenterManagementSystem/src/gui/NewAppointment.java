@@ -83,11 +83,11 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jLabel2.setText("Trainer User ID");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText("                                                ");
 
         jLabel3.setText("Customer ID");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText("                                  ");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -96,11 +96,11 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jLabel4.setText("Date");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setText("                              ");
 
         jLabel5.setText("Time");
 
-        jTextField4.setText("jTextField4");
+        jTextField4.setText("                       ");
 
         jButton1.setText("Create");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +118,7 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jLabel6.setText("Duration (hour)");
 
-        jTextField5.setText("jTextField5");
+        jTextField5.setText("               ");
 
         jLabel7.setText("                                           ");
 
@@ -204,9 +204,9 @@ public class NewAppointment extends javax.swing.JFrame {
                 jTextField2.getText().isEmpty() || 
                 jTextField3.getText().isEmpty() || 
                 jTextField4.getText().isEmpty() ||
-                isNumeric(jTextField5.getText()) ||
+                !isNumeric(jTextField5.getText()) ||
                 jTextField5.getText().isEmpty() ||
-                !isNumeric(jTextField4.getText())){
+                !!isNumeric(jTextField4.getText())){
                 jLabel7.setText("Please fill in all the information correctly");
         	}else{
         		try {
@@ -222,7 +222,7 @@ public class NewAppointment extends javax.swing.JFrame {
                         
                         // Split the line by using the delimiter ":" (semicolon) and store into array.
                         String[] details = data.split(",");
-                        int ID = removeCharacter(details[0], "CS");
+                        int ID = removeCharacter(details[0], "AP");
                         if (ID > num){
                             num = ID;
                         }

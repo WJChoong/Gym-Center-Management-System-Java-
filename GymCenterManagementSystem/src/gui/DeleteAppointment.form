@@ -121,7 +121,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Create New Appointment"/>
+            <Property name="text" type="java.lang.String" value="Delete Appointment"/>
           </Properties>
         </Component>
       </SubComponents>

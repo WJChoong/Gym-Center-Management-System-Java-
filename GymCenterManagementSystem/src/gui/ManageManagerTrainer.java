@@ -284,11 +284,8 @@ public class ManageManagerTrainer extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       System.out.println("1");
        NewUser newUser = new NewUser();
-       System.out.println("2");
        newUser.setVisible(true);
-       System.out.println("");
        setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 

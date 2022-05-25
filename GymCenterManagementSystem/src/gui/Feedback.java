@@ -19,6 +19,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 import models.Data;
 
 /**
@@ -229,9 +231,9 @@ public class Feedback extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    	if (!(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
-    		!(jRadioButton3.isSelected() || jRadioButton4.isSelected() || jRadioButton5.isSelected()) ||
-    		!(jRadioButton6.isSelected() || jRadioButton7.isSelected() || jRadioButton8.isSelected()  || jRadioButton9.isSelected())){
+    	if ((jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
+    		(jRadioButton3.isSelected() || jRadioButton4.isSelected() || jRadioButton5.isSelected()) ||
+                (jRadioButton6.isSelected() || jRadioButton7.isSelected() || jRadioButton8.isSelected()  || jRadioButton9.isSelected())){
     		String first = jRadioButton1.isSelected() ? "Yes": "No";
     		String second = null;
     		String third = null;
@@ -289,11 +291,17 @@ public class Feedback extends javax.swing.JFrame {
                 String data = ID + "," + date.toString() + "," + first + "," + second + "," + third;
                 outputFile.println(data);
                 outputFile.close();
+                JOptionPane.showMessageDialog(null, "Feedback is saved");
+                CollectPaymentGiveFeedback paymentFeedback = new CollectPaymentGiveFeedback();
+        		paymentFeedback.setVisible(true);
+        		setVisible(false);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
+    	}else {
+    		jLabel5.setText("Please answer all the question");
     	}
     }//GEN-LAST:event_jButton1ActionPerformed
 

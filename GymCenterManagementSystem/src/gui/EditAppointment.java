@@ -5,6 +5,8 @@
  */
 package gui;
 
+import static gui.EditUser.isNumeric;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,7 +59,7 @@ public class EditAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Create New Appointment");
+        jLabel1.setText("Edit Appointment");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,21 +80,31 @@ public class EditAppointment extends javax.swing.JFrame {
 
         jLabel2.setText("Trainer User ID");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText("                                   ");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Customer ID");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText("                                        ");
 
         jLabel4.setText("Date");
 
-        jTextField3.setText("jTextField3");
+        jTextField3.setText("                                  ");
 
         jLabel5.setText("Time");
 
-        jTextField4.setText("jTextField4");
+        jTextField4.setText("                       ");
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Edit");
+        jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -113,11 +125,16 @@ public class EditAppointment extends javax.swing.JFrame {
 
         jLabel6.setText("Duration (hour)");
 
-        jTextField5.setText("jTextField5");
+        jTextField5.setText("                              ");
 
-        jLabel7.setText("                                        ");
+        jLabel7.setText("                                                                ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] appointmentId = new String[Data.appointmentList.size() + 1];
+        appointmentId[0] = null;
+        for (int i = 1; i < Data.appointmentList.size() + 1; i++) {
+        	appointmentId[i] = Data.appointmentList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(appointmentId));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,11 +162,9 @@ public class EditAppointment extends javax.swing.JFrame {
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(86, Short.MAX_VALUE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,56 +206,72 @@ public class EditAppointment extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    	try {
-            String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\appointment.txt";
-            //Instantiating the Scanner class to read the file
-            Scanner sc = new Scanner(new File(filePath));
-            //instantiating the StringBuffer class
-            StringBuffer buffer = new StringBuffer();
-            //Reading lines of the file and appending them to StringBuffer
-            while (sc.hasNextLine()) {
-                buffer.append(sc.nextLine()+System.lineSeparator());
-            }
-            String fileContents = buffer.toString();
-            sc.close();
-            String oldLine = Data.appointmentList.get(index).getId() + "," +
-	                    Data.appointmentList.get(index).getTrainerId() + "," +
-	                    Data.appointmentList.get(index).getCustomerId() + "," +
-	                    Data.appointmentList.get(index).getDate() + "," +
-	                    Data.appointmentList.get(index).getTime() + "," +
-                        Data.appointmentList.get(index).getDuration();
-
-            String newLine = jComboBox1.getSelectedItem().toString() + "," +
-                    jTextField1.getText() + "," +
-                    jTextField2.getText() + "," +
-                    jTextField3.getText() + "," +
-                    jTextField4.getText() + "," +
-                    jTextField5.getText() + ",";
-            //Replacing the old line with new line
-            fileContents = fileContents.replaceAll(oldLine, newLine);
-            //instantiating the FileWriter class
-            FileWriter writer = new FileWriter(filePath);
-            writer.append(fileContents);
-            writer.flush();
-            JOptionPane.showMessageDialog(this, "The information had been updated!");
-            if (Data.user.getPosition().equals("M")) {
-        		ManageAppointment manageAppointment = new ManageAppointment();
-                manageAppointment.setVisible(true);
-                setVisible(false);
-        	}else if(Data.user.getPosition().equals("T")) {
-        		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
-        		manageIndividualAppointment.setVisible(true);
-                setVisible(false);
-        	}
-        }catch(IOException e){
-            try {
-                JOptionPane.showMessageDialog(null, "Failed to update the customer");
-                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-                manageTrainer.setVisible(true);
-                setVisible(false);
-            } catch (IOException ex) {
-                Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    	if(jTextField1.getText().contains(",") ||
+            jTextField2.getText().contains(",") ||
+            jTextField3.getText().contains(",") ||
+            jTextField4.getText().contains(",") ||
+            jTextField5.getText().contains(",")) {
+            jLabel7.setText("Please do not include ',' symbol in any of your information");
+        }else if (jTextField1.getText().isEmpty() ||
+                    jTextField2.getText().isEmpty() ||
+                    jTextField3.getText().isEmpty() ||
+                    jTextField4.getText().isEmpty() ||
+                    jTextField5.getText().isEmpty() ||
+                    !isNumeric(jTextField4.getText()) ||
+                    !isNumeric(jTextField5.getText())){
+        		jLabel7.setText("Please fill in all the information correctly");
+        }else{
+			try {
+		        String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\appointment.txt";
+		        //Instantiating the Scanner class to read the file
+		        Scanner sc = new Scanner(new File(filePath));
+		        //instantiating the StringBuffer class
+		        StringBuffer buffer = new StringBuffer();
+		        //Reading lines of the file and appending them to StringBuffer
+		        while (sc.hasNextLine()) {
+		            buffer.append(sc.nextLine()+System.lineSeparator());
+		        }
+		        String fileContents = buffer.toString();
+		        sc.close();
+		        String oldLine = Data.appointmentList.get(index).getId() + "," +
+		                    Data.appointmentList.get(index).getTrainerId() + "," +
+		                    Data.appointmentList.get(index).getCustomerId() + "," +
+		                    Data.appointmentList.get(index).getDate() + "," +
+		                    Data.appointmentList.get(index).getTime() + "," +
+		                    Data.appointmentList.get(index).getDuration();
+		
+		        String newLine = jComboBox1.getSelectedItem().toString() + "," +
+		                jTextField1.getText() + "," +
+		                jTextField2.getText() + "," +
+		                jTextField3.getText() + "," +
+		                jTextField4.getText() + "," +
+		                jTextField5.getText() + ",";
+		        //Replacing the old line with new line
+		        fileContents = fileContents.replaceAll(oldLine, newLine);
+		        //instantiating the FileWriter class
+		        FileWriter writer = new FileWriter(filePath);
+		        writer.append(fileContents);
+		        writer.flush();
+		        JOptionPane.showMessageDialog(this, "The information had been updated!");
+		        if (Data.user.getPosition().equals("M")) {
+		    		ManageAppointment manageAppointment = new ManageAppointment();
+		            manageAppointment.setVisible(true);
+		            setVisible(false);
+		    	}else if(Data.user.getPosition().equals("T")) {
+		    		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+		    		manageIndividualAppointment.setVisible(true);
+		            setVisible(false);
+		    	}
+		    }catch(IOException e){
+		        try {
+		            JOptionPane.showMessageDialog(null, "Failed to update the customer");
+		            ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
+		            manageTrainer.setVisible(true);
+		            setVisible(false);
+		        } catch (IOException ex) {
+		            Logger.getLogger(EditCustomer.class.getName()).log(Level.SEVERE, null, ex);
+		        }
+		    }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -256,6 +287,14 @@ public class EditAppointment extends javax.swing.JFrame {
             setVisible(false);
     	}
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
     /**
      * @param args the command line arguments

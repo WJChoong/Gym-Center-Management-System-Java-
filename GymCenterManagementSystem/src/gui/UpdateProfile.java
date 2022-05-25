@@ -80,19 +80,19 @@ public class UpdateProfile extends javax.swing.JFrame {
 
         jLabel4.setText("Name");
 
-        jTextField1.setText(Data.user != null ? Data.user.getName(): "");
+        jTextField1.setText(Data.user != null ? Data.user.getName(): "      ");
 
         jLabel5.setText("Age");
 
-        jTextField2.setText(Data.user != null ? Data.user.getAge(): "");
+        jTextField2.setText(Data.user != null ? Data.user.getAge(): "      ");
 
         jLabel6.setText("Gender");
 
-        jTextField3.setText(Data.user != null ? Data.user.getGender(): "");
+        jTextField3.setText(Data.user != null ? Data.user.getGender(): "      ");
 
         jLabel7.setText("Country");
 
-        jTextField4.setText(Data.user != null ? Data.user.getCountry(): "");
+        jTextField4.setText(Data.user != null ? Data.user.getCountry(): "      ");
 
         jButton1.setText("Save Changes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +102,11 @@ public class UpdateProfile extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,7 +177,13 @@ public class UpdateProfile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    	TrainerAccount account = new TrainerAccount();
+        setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt){                                         
     	try {
     		String filePath = "D:\\GitHub\\Gym-Center-Management-System-Java-\\GymCenterManagementSystem\\src\\user.txt";
             //Instantiating the Scanner class to read the file

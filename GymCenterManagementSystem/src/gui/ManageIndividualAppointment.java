@@ -37,7 +37,7 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
         ArrayList<Appointment> list = new ArrayList<Appointment>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
     	String data = null;
-    	while((data=reader.readLine()) != null) {
+    	while(!(data=reader.readLine()).equals("")) {
     		String[] rawData = data.split(",") ;
     		String date = LocalDate.now().toString();
     		String[] splittedDate = date.split("-");

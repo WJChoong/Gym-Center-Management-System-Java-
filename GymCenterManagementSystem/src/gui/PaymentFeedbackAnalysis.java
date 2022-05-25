@@ -6,6 +6,7 @@
 package gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -39,45 +41,51 @@ public class PaymentFeedbackAnalysis extends javax.swing.JFrame {
     private HashMap<String, Integer> ListAnalysis() throws IOException
     {
         ArrayList<User> list = new ArrayList<User>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
-    	String data = null;
-    	while((data=reader.readLine()) != null) {
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
+//    	String data = null;
+        Scanner a = new Scanner(new File("src/user.txt"));
+        while (a.hasNext()){
+//    	while((data=reader.readLine()) != null) {
+                String data = a.nextLine();
     		String[] rawData = data.split(",") ;
     		if (rawData[3].equals("T")) {
     			User user = new User();
-                user.setId(rawData[0]);
-                user.setName(rawData[4]);
-                user.setPosition(rawData[3]);
-                user.setAge(rawData[5]);
-                user.setGender(rawData[6]);
-                user.setCountry(rawData[7]);
-                user.setPassword(rawData[2]);
-                user.setUsername(rawData[1]);
-                list.add(user);
+                    user.setId(rawData[0]);
+                    user.setName(rawData[4]);
+                    user.setPosition(rawData[3]);
+                    user.setAge(rawData[5]);
+                    user.setGender(rawData[6]);
+                    user.setCountry(rawData[7]);
+                    user.setPassword(rawData[2]);
+                    user.setUsername(rawData[1]);
+                    list.add(user);
     		}
     	}
-    	reader.close();
+//    	reader.close();
     	
     	HashMap<String, Integer> trainers = new HashMap<String, Integer>();
     	for (int i = 0; i < list.size(); i++) {
     		trainers.put(list.get(i).getId(), 0);
     	}
     	
-    	reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-    	data = null;
-    	while((data=reader.readLine()) != null) {
-    		String[] rawData = data.split(",") ;
-    		String date = LocalDate.now().toString();
-    		String[] splittedDate = date.split("-");
-    		String year = rawData[3].split("-")[0];
-    		String month = rawData[3].split("-")[1];
-    		if (splittedDate[0].equals(year) && splittedDate[1].equals(month)) {
-    			int cost = Integer.parseInt(rawData[5]) * 10;
-    			trainers.put(rawData[1], trainers.get(rawData[2]) + cost);
-    		}
+//    	reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
+//    	data = null;
+//    	while(!(data=reader.readLine()).equals("")) {
+        Scanner b = new Scanner(new File("src/user.txt"));
+        while (b.hasNext()){
+            String data = b.nextLine();
+            String[] rawData = data.split(",") ;
+            String date = LocalDate.now().toString();
+            String[] splittedDate = date.split("-");
+            String year = rawData[3].split("-")[0];
+            String month = rawData[3].split("-")[1];
+            if (splittedDate[0].equals(year) && splittedDate[1].equals(month)) {
+                int cost = Integer.parseInt(rawData[5]) * 10;
+                trainers.put(rawData[1], trainers.get(rawData[2]) + cost);
+             }
     		
     	}
-    	reader.close();
+//    	reader.close();
         return trainers;
     }
     

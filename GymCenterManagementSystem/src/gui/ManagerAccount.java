@@ -25,8 +25,11 @@ public class ManagerAccount extends JFrame implements ActionListener{
         		paymentFeedbackAnalysis.setVisible(true);
         		setVisible(false);
         	}else if(a.getSource() == btn3) {
+        		System.out.println("Hello");
         		ManageAppointment manageAppointment = new ManageAppointment();
+        		System.out.println("Hello");
         		manageAppointment.setVisible(true);
+        		System.out.println("Hello");
         		setVisible(false);
         	}else if(a.getSource() == btn2) {
         		ManageCustomer manageCustomer = new ManageCustomer();

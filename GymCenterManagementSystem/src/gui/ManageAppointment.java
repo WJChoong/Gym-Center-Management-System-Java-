@@ -6,9 +6,12 @@
 package gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -35,20 +38,38 @@ public class ManageAppointment extends javax.swing.JFrame {
     private ArrayList ListAppointments() throws IOException
     {
         ArrayList<Appointment> list = new ArrayList<Appointment>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-    	String data = null;
-    	while((data=reader.readLine()) != null) {
-    		String[] rawData = data.split(",") ;
-    		Appointment appointment = new Appointment();
-    		appointment.setId(rawData[0]);
-    		appointment.setTrainerId(rawData[1]);
-    		appointment.setCustomerId(rawData[2]);
-    		appointment.setDate(rawData[3]);
-    		appointment.setTime(rawData[4]);
-    		appointment.setDuration(rawData[5]);
-            list.add(appointment);
+        Scanner a = new Scanner(new File("src/appointment.txt"));
+        while (a.hasNext()){
+            String data = a.nextLine();
+            String[] rawData = data.split(",") ;
+            String date = LocalDate.now().toString();
+            String[] splittedDate = date.split("-");
+            String year = rawData[3].split("-")[0];
+            String month = rawData[3].split("-")[1];
+            String day = rawData[3].split("-")[2];
+            if ((splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) >= Integer.parseInt(day)) &&
+                (splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) <= Integer.parseInt(day) + 14)) {
+                Appointment appointment = new Appointment();
+//                if (Data.user.getPosition().equals("T")){
+//                    if(rawData[1].equals(Data.user.getId())){
+//                        appointment.setId(rawData[0]);
+//                        appointment.setTrainerId(rawData[1]);
+//                        appointment.setCustomerId(rawData[2]);
+//                        appointment.setDate(rawData[3]);
+//                        appointment.setTime(rawData[4]);
+//                        appointment.setDuration(rawData[5]);
+//                    }
+//                }else{
+                    appointment.setId(rawData[0]);
+                    appointment.setTrainerId(rawData[1]);
+                    appointment.setCustomerId(rawData[2]);
+                    appointment.setDate(rawData[3]);
+                    appointment.setTime(rawData[4]);
+                    appointment.setDuration(rawData[5]);
+//                }
+                list.add(appointment);
+            }
     	}
-    	reader.close();
         return list;
     }
     
@@ -62,15 +83,15 @@ public class ManageAppointment extends javax.swing.JFrame {
         {
         	Object rowData[] = new Object[6];
         	if (jTextField1.getText().length() > 0){
-        		String keyword = jTextField1.getText();
-        		if (list.get(i).getId().contains(keyword) ||
-    				list.get(i).getTrainerId().contains(keyword) ||
-	                list.get(i).getCustomerId().contains(keyword) ||
-	                list.get(i).getDate().contains(keyword) ||
-	                list.get(i).getTime().contains(keyword) ||
-	                list.get(i).getDuration().contains(keyword)
+                    String keyword = jTextField1.getText();
+                    if (list.get(i).getId().contains(keyword) ||
+                            list.get(i).getTrainerId().contains(keyword) ||
+                    list.get(i).getCustomerId().contains(keyword) ||
+                    list.get(i).getDate().contains(keyword) ||
+                    list.get(i).getTime().contains(keyword) ||
+                    list.get(i).getDuration().contains(keyword)
                 ) {
-        			rowData[0] = list.get(i).getId();
+                    rowData[0] = list.get(i).getId();
                     rowData[1] = list.get(i).getTrainerId();
                     rowData[2] = list.get(i).getCustomerId();
                     rowData[3] = list.get(i).getDate();

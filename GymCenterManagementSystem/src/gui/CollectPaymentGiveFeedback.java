@@ -6,9 +6,11 @@
 package gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -34,9 +36,12 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
     private ArrayList ListAppointments() throws IOException
     {
         ArrayList<Appointment> list = new ArrayList<Appointment>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-    	String data = null;
-    	while((data=reader.readLine()) != null) {
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
+//    	String data = null;
+        Scanner a = new Scanner(new File("src/appointment.txt"));
+//    	while(!(data=reader.readLine()).equals("")){
+        while (a.hasNext()){
+			String data = a.nextLine();
     		String[] rawData = data.split(",") ;
     		Appointment appointment = new Appointment();
     		appointment.setId(rawData[0]);
@@ -47,7 +52,7 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
     		appointment.setDuration(rawData[5]);
             list.add(appointment);
     	}
-    	reader.close();
+//    	reader.close();
         return list;
     }
     
@@ -59,31 +64,16 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
         Data.appointmentList = list;
         for(int i = 0; i < list.size(); i++)
         {
-        	Object rowData[] = new Object[6];
-//        	if (jTextField1.getText().length() > 0){
-//        		String keyword = jTextField1.getText();
-//        		if (list.get(i).getId().contains(keyword) ||
-//    				list.get(i).getTrainerId().contains(keyword) ||
-//	                list.get(i).getCustomerId().contains(keyword) ||
-//	                list.get(i).getDate().contains(keyword) ||
-//	                list.get(i).getTime().contains(keyword) ||
-//	                list.get(i).getDuration().contains(keyword)
-//                ) {
-//        			rowData[0] = list.get(i).getId();
-//                    rowData[1] = list.get(i).getTrainerId();
-//                    rowData[2] = list.get(i).getCustomerId();
-//                    rowData[3] = list.get(i).getDate();
-//                    rowData[4] = list.get(i).getTime();
-//                    rowData[5] = list.get(i).getDuration();
-//        		}
-//        	}else {
-        		rowData[0] = list.get(i).getId();
-                rowData[1] = list.get(i).getTrainerId();
-                rowData[2] = list.get(i).getCustomerId();
-                rowData[3] = list.get(i).getDate();
-                rowData[4] = list.get(i).getTime();
-                rowData[5] = list.get(i).getCost();
-//        	}
+        	Object rowData[] = new Object[5];
+    		rowData[0] = list.get(i).getId();
+            rowData[1] = list.get(i).getTrainerId();
+            rowData[2] = list.get(i).getCustomerId();
+            rowData[3] = list.get(i).getDate();
+            rowData[4] = list.get(i).getTime();
+            System.out.println(list.get(i).getCost());
+//            int cost = Integer.parseInt(list.get(i).getDuration()) * 10;
+            String y = String.valueOf(list.get(i).getCost());
+            rowData[5] = y;
             model.addRow(rowData);
         }
                 

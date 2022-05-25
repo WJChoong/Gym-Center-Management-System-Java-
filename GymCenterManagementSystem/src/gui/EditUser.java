@@ -147,7 +147,12 @@ public class EditUser extends javax.swing.JFrame {
 
         jLabel9.setText("                                                                       ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        String[] userId = new String[Data.userList.size() + 1];
+        userId[0] = null;
+        for (int i = 1; i < Data.userList.size() + 1; i++) {
+        	userId[i] = Data.userList.get(i-1).getId();
+        }
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(userId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -261,7 +266,7 @@ public class EditUser extends javax.swing.JFrame {
 		    		jTextField2.getText().isEmpty() || 
 		    		jTextField3.getText().isEmpty() || 
 		    		jTextField4.getText().isEmpty() ||
-		    		!isNumeric(jTextField4.getText()) ||
+		    		!isNumeric(jTextField5.getText()) ||
 		    		jTextField5.getText().isEmpty() ||
 		    		!(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
 		    		!(jRadioButton3.isSelected() || jRadioButton4.isSelected())){
@@ -295,9 +300,9 @@ public class EditUser extends javax.swing.JFrame {
                 					jTextField2.getText() + "," + 
                 					position + "," + 
                 					jTextField3.getText() + "," + 
-                					jTextField4.getText() + "," +
+                					jTextField5.getText() + "," +
                 					gender + "," +
-        							jTextField5.getText();
+        							jTextField4.getText();
                 //Replacing the old line with new line
                 fileContents = fileContents.replaceAll(oldLine, newLine);
                 //instantiating the FileWriter class

@@ -55,7 +55,7 @@ public class DeleteAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Create New Appointment");
+        jLabel1.setText("Delete Appointment");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,18 +194,18 @@ public class DeleteAppointment extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     	 try{
-             String id = Data.appointmentList.get(index).getId();
-             Auth.removeRecord("src/appointment.txt", id);
-             JOptionPane.showMessageDialog(null, "Successfully deleted");
-             if (Data.user.getPosition().equals("M")) {
-         		ManageAppointment manageAppointment = new ManageAppointment();
-                 manageAppointment.setVisible(true);
-                 setVisible(false);
-         	}else if(Data.user.getPosition().equals("T")) {
-         		ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
-         		manageIndividualAppointment.setVisible(true);
-                 setVisible(false);
-         	}
+            String id = Data.appointmentList.get(index).getId();
+            Auth.removeRecord("src/appointment.txt", id);
+            JOptionPane.showMessageDialog(null, "Successfully deleted");
+            if (Data.user.getPosition().equals("M")) {
+                ManageAppointment manageAppointment = new ManageAppointment();
+                manageAppointment.setVisible(true);
+                setVisible(false);
+            }else if(Data.user.getPosition().equals("T")) {
+                ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
+                manageIndividualAppointment.setVisible(true);
+                setVisible(false);
+            }
          }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Failed to delete record");
          }
@@ -238,7 +238,7 @@ public class DeleteAppointment extends javax.swing.JFrame {
             jLabel7.setText("");    		
     	}else {
             for (int i = 0; i < Data.appointmentList.size(); i++) {
-                if (Data.customerList.get(i).getId().equals(value)) {
+                if (Data.appointmentList.get(i).getId().equals(value)) {
                     index = i;
                     jLabel9.setText(Data.appointmentList.get(i).getTrainerId());
                     jLabel8.setText(Data.appointmentList.get(i).getCustomerId());

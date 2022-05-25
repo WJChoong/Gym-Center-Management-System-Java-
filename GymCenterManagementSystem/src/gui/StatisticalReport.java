@@ -6,9 +6,14 @@
 package gui;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import models.Auth;
 import models.User;
@@ -35,12 +40,12 @@ public class StatisticalReport extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() throws IOException {
+    private void initComponents(){
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -49,7 +54,7 @@ public class StatisticalReport extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
+
         HashMap<String, Integer> trainerGender = new HashMap<String, Integer>();
         trainerGender.put("M", 0);
         trainerGender.put("F", 0);
@@ -58,37 +63,64 @@ public class StatisticalReport extends javax.swing.JFrame {
         customerGender.put("M", 0);
         customerGender.put("F", 0);
         
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
-    	String data = null;
-    	while((data=reader.readLine()) != null) {
-    		String[] rawData = data.split(",") ;
-    		if (rawData[3].equals("T")) {
-				trainerGender.put(rawData[6], trainerGender.get(rawData[6]) + 1);
-    		}
-    	}
-    	reader.close();
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("user.txt")));
+//    	String data = null;
+        Scanner b = null;
+		try {
+			b = new Scanner(new File("src/user.txt"));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	//			while((data=reader.readLine()).equals("")) {
+		while (b.hasNext()){
+			String data = b.nextLine();
+			String[] rawData = data.split(",");
+			System.out.println(rawData[3]);
+			if (rawData[3].equals("T")) {
+				int original = trainerGender.get(rawData[6]).intValue();
+				original++;
+				System.out.println(rawData[6]);
+				Integer count = original;
+				trainerGender.put(rawData[6], count);
+			}
+		}
     	
-    	reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("customer.txt")));
-    	data = null;
-    	while((data=reader.readLine()) != null) {
+//    	reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("customer.txt")));
+//    	String data = null;
+//    	while(!(data=reader.readLine()).equals("")) {
+    	Scanner a = null;
+		try {
+			a = new Scanner(new File("src/customer.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        while (a.hasNext()){
+        	String data = a.nextLine();
     		String[] rawData = data.split(",") ;
-    		if (rawData[3].equals("T")) {
-    			customerGender.put(rawData[6], customerGender.get(rawData[6]) + 1);
-    		}
+    		int original = customerGender.get(rawData[3]).intValue();
+    		original++;
+    		Integer count = original;
+			customerGender.put(rawData[3], count);
     	}
-    	reader.close();
     	String maleCustomer = String.valueOf(customerGender.get("M"));
     	String femaleCustomer = String.valueOf(customerGender.get("F"));
     	String maleTrainer = String.valueOf(trainerGender.get("M"));
     	String femaleTrainer = String.valueOf(trainerGender.get("F"));
-
+    	
         jLabel1.setText("Statistical Report");
 
         jLabel2.setText("Customer");
 
         jLabel3.setText("Trainer");
 
-        jButton1.setText("Close");
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Male");
 
@@ -116,7 +148,7 @@ public class StatisticalReport extends javax.swing.JFrame {
                             .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,12 +182,17 @@ public class StatisticalReport extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
                 .addGap(56, 56, 56)
-                .addComponent(jButton1)
+                .addComponent(closeButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    	ManagerAccount account = new ManagerAccount();
+        setVisible(false);
+    }
 
     /**
      * @param args the command line arguments
@@ -188,17 +225,17 @@ public class StatisticalReport extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-					new StatisticalReport().setVisible(true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                        new StatisticalReport().setVisible(true);
+                } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

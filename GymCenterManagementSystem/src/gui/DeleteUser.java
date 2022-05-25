@@ -141,6 +141,7 @@ public class DeleteUser extends javax.swing.JFrame {
         jRadioButton4.setText("Male");
 
         jLabel9.setText("                                                 ");
+        
         String[] userId = new String[Data.userList.size() + 1];
         userId[0] = null;
         for (int i = 1; i < Data.userList.size() + 1; i++) {
@@ -298,9 +299,9 @@ public class DeleteUser extends javax.swing.JFrame {
             ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
             manageTrainer.setVisible(true);
             setVisible(false);
-                    }catch(Exception e){
-                        JOptionPane.showMessageDialog(null, "Failed to delete");
-                    }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Failed to delete");
+        }
 //            File inputFile = new File("src\\user.txt");
 //            File tempFile = new File("src\\tempFile.txt");
 //            

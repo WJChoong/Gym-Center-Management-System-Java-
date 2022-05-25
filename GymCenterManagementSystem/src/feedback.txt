@@ -1,1 +1,2 @@
-FB,2022-05-21,Yes,Good,None
+FB00001,2022-05-21,Yes,Good,None
+FB000002,2022-05-25,Yes,Bad,Facility

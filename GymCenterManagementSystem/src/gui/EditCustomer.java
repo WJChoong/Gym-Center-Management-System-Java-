@@ -54,7 +54,7 @@ public class EditCustomer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Register New Customer Account");
+        jLabel1.setText("Edit Customer Account");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,20 +75,20 @@ public class EditCustomer extends javax.swing.JFrame {
 
         jLabel2.setText("Name");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText("                                    ");
 
         jLabel3.setText("Gender");
 
         jLabel4.setText("Age");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText("               ");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Register");
+        jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -111,7 +111,7 @@ public class EditCustomer extends javax.swing.JFrame {
         String[] customerId = new String[Data.customerList.size() + 1];
         customerId[0] = null;
         for (int i = 1; i < Data.customerList.size() + 1; i++) {
-            customerId[i] = Data.customerList.get(i-1).getId();
+        	customerId[i] = Data.customerList.get(i-1).getId();
         }
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(customerId));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -203,11 +203,12 @@ public class EditCustomer extends javax.swing.JFrame {
             jRadioButton2.setSelected(false);
         }else {
             for (int i = 0; i < Data.customerList.size(); i++) {
+            	System.out.println("Hello");
                 if (Data.customerList.get(i).getId().equals(value)) {
                     index = i;
-                    jTextField1.setText(Data.userList.get(i).getName());
-                    jTextField2.setText(Data.userList.get(i).getAge());
-                    if (Data.userList.get(i).getPosition().equals("M")){
+                    jTextField1.setText(Data.customerList.get(i).getName());
+                    jTextField2.setText(Data.customerList.get(i).getAge());
+                    if (Data.customerList.get(i).getGender().equals("M")){
                         jRadioButton1.setSelected(true);
                     }else{
                         jRadioButton2.setSelected(true);
@@ -234,7 +235,7 @@ public class EditCustomer extends javax.swing.JFrame {
             jTextField2.getText().contains(",")) {
             jLabel5.setText("Please do not include ',' symbol in any of your information");
         }else if (jTextField1.getText().isEmpty() ||
-                isNumeric(jTextField2.getText()) ||
+                !isNumeric(jTextField2.getText()) ||
                 !(jRadioButton1.isSelected() || jRadioButton2.isSelected())){
             jLabel5.setText("Please fill in all the information correctly");
         }else{
