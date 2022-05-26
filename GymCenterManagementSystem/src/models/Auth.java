@@ -21,30 +21,21 @@ public class Auth {
     	while((data=reader.readLine()) != null) {
     		String[] rawData = data.split(",") ;
     		if (rawData[1].equals(username) &&  rawData[2].equals(password)) {
-    			status = true;
-    			user.setId(rawData[0]);
-    			user.setName(rawData[4]);
-    			user.setPosition(rawData[3]);
-    			user.setAge(rawData[5]);
-    			user.setGender(rawData[6]);
-    			user.setCountry(rawData[7]);
-    			user.setPassword(rawData[2]);
-    			user.setUsername(rawData[1]);
-    			break;
+                    status = true;
+                    user.setId(rawData[0]);
+                    user.setName(rawData[4]);
+                    user.setPosition(rawData[3]);
+                    user.setAge(rawData[5]);
+                    user.setGender(rawData[6]);
+                    user.setCountry(rawData[7]);
+                    user.setPassword(rawData[2]);
+                    user.setUsername(rawData[1]);
+                    break;
     		}
     	}
     	reader.close();
         return user;
     }
-
-    public boolean resetPassword(String username, String newPassword, String confirmPassword) {
-        return true;
-    }
-
-    public boolean changePassword(String username, String newPassword, String confirmPassword) {
-        return true;
-    }
-
     public static void register(String username, String password, String position, String name, String age, String gender, String country) throws IOException {
         String filename = "src\\user.txt";
         File file = new File(filename);

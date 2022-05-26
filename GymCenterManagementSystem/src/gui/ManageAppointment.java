@@ -47,8 +47,8 @@ public class ManageAppointment extends javax.swing.JFrame {
             String year = rawData[3].split("-")[0];
             String month = rawData[3].split("-")[1];
             String day = rawData[3].split("-")[2];
-            if ((splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) >= Integer.parseInt(day)) &&
-                (splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) <= Integer.parseInt(day) + 14)) {
+            if ((splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) <= Integer.parseInt(day)) &&
+                    (splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(day) < (Integer.parseInt(splittedDate[2]) + 14))) {
                 Appointment appointment = new Appointment();
 //                if (Data.user.getPosition().equals("T")){
 //                    if(rawData[1].equals(Data.user.getId())){

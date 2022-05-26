@@ -6,10 +6,12 @@
 package gui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -35,18 +37,22 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
     private ArrayList ListAppointments() throws IOException
     {
         ArrayList<Appointment> list = new ArrayList<Appointment>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-    	String data = null;
-    	while(!(data=reader.readLine()).equals("")) {
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
+//    	String data = null;
+//    	while(!(data=reader.readLine()).equals("")) {
+        Scanner b = new Scanner(new File("src/appointment.txt"));
+        while (b.hasNext()){
+			String data = b.nextLine();
     		String[] rawData = data.split(",") ;
     		String date = LocalDate.now().toString();
     		String[] splittedDate = date.split("-");
     		String year = rawData[3].split("-")[0];
     		String month = rawData[3].split("-")[1];
     		String day = rawData[3].split("-")[2];
+    		System.out.println(Integer.parseInt(day) < (Integer.parseInt(splittedDate[2]) + 14));   		
     		if ( rawData[1].equals(Data.user.getId()) && 
-				(splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) >= Integer.parseInt(day)) &&
-				(splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) <= Integer.parseInt(day) + 14)) {
+                (splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) <= Integer.parseInt(day)) &&
+                (splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(day) < (Integer.parseInt(splittedDate[2]) + 14))) {
     			Appointment appointment = new Appointment();
         		appointment.setId(rawData[0]);
         		appointment.setTrainerId(rawData[1]);
@@ -57,7 +63,8 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
                 list.add(appointment);
     		}
     	}
-    	reader.close();
+        System.out.println("hey 2");
+//    	reader.close();
         return list;
     }
     
@@ -65,34 +72,33 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
     {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
+        System.out.println("hey 1");
         ArrayList<Appointment> list = ListAppointments();
+        System.out.println("hey hey");
         Data.appointmentList = list;
         for(int i = 0; i < list.size(); i++)
         {
-        	Object rowData[] = new Object[6];
+        	Object rowData[] = new Object[5];
         	if (jTextField1.getText().length() > 0){
         		String keyword = jTextField1.getText();
         		if (list.get(i).getId().contains(keyword) ||
-    				list.get(i).getTrainerId().contains(keyword) ||
-	                list.get(i).getCustomerId().contains(keyword) ||
-	                list.get(i).getDate().contains(keyword) ||
-	                list.get(i).getTime().contains(keyword) ||
-	                list.get(i).getDuration().contains(keyword)
-                ) {
-        				rowData[0] = list.get(i).getId();
-                        rowData[1] = list.get(i).getTrainerId();
-                        rowData[2] = list.get(i).getCustomerId();
-                        rowData[3] = list.get(i).getDate();
-                        rowData[4] = list.get(i).getTime();
-                        rowData[5] = list.get(i).getDuration();
+                            list.get(i).getCustomerId().contains(keyword) ||
+                            list.get(i).getDate().contains(keyword) ||
+                            list.get(i).getTime().contains(keyword) ||
+                            list.get(i).getDuration().contains(keyword)
+                        ) {
+                            rowData[0] = list.get(i).getId();
+                            rowData[1] = list.get(i).getCustomerId();
+                            rowData[2] = list.get(i).getDate();
+                            rowData[3] = list.get(i).getTime();
+                            rowData[4] = list.get(i).getDuration();
         		}
         	}else {
-        		rowData[0] = list.get(i).getId();
-                rowData[1] = list.get(i).getTrainerId();
-                rowData[2] = list.get(i).getCustomerId();
-                rowData[3] = list.get(i).getDate();
-                rowData[4] = list.get(i).getTime();
-                rowData[5] = list.get(i).getDuration();
+                    rowData[0] = list.get(i).getId();
+                    rowData[1] = list.get(i).getCustomerId();
+                    rowData[2] = list.get(i).getDate();
+                    rowData[3] = list.get(i).getTime();
+                    rowData[4] = list.get(i).getDuration();
         	}
             model.addRow(rowData);
         }
@@ -148,6 +154,11 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
         jLabel2.setText("Other Functions:");
 
         jButton2.setText("Create New Appointment");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cancel");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -157,8 +168,18 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
         });
 
         jButton4.setText("Edit Appointment");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Delete Appointment");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,6 +260,27 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
         // TODO add your handling code here:
     	addRowToJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        NewAppointment newAppointment = new NewAppointment();
+        newAppointment.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        EditAppointment editAppointment = new EditAppointment();
+        editAppointment.setVisible(true);
+        setVisible(false);  
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        DeleteAppointment deleteAppointment = new DeleteAppointment();
+    	deleteAppointment.setVisible(true);
+        setVisible(false);  
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

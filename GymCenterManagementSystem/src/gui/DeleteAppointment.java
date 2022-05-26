@@ -5,7 +5,13 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -194,9 +200,36 @@ public class DeleteAppointment extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     	 try{
-            String id = Data.appointmentList.get(index).getId();
-            System.out.println(id);
-            Auth.removeRecord("src/appointment.txt", id);
+            String filepath = "src/appointment.txt";
+            String tempFile = "src/temp.txt";
+            File oldFile = new File(filepath);
+            File newFile = new File(tempFile);
+            String currentLine;
+            String data[];
+            FileWriter fw = new FileWriter(tempFile,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            FileReader fr = new FileReader(filepath);
+            BufferedReader br = new BufferedReader(fr);
+            while ((currentLine = br.readLine()) != null){
+                data = currentLine.split(",");
+                if (!(data[0].equals(Data.appointmentList.get(index).getId()))){
+                    pw.println(currentLine);
+                }
+            }
+
+            pw.flush();
+            pw.close();
+            fr.close();
+            br.close();
+            bw.close();
+            fw.close();
+
+            oldFile.delete();
+            File dump = new File(filepath);
+            newFile.renameTo(dump);
+//            Auth.removeRecord("src/appointment.txt", id);
             JOptionPane.showMessageDialog(null, "Successfully deleted");
             if (Data.user.getPosition().equals("M")) {
                 ManageAppointment manageAppointment = new ManageAppointment();

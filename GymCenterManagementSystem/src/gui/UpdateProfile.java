@@ -76,23 +76,19 @@ public class UpdateProfile extends javax.swing.JFrame {
 
         jLabel2.setText("Trainer User ID (Cannot Edit)");
 
-        jLabel3.setText(Data.user != null ? Data.user.getId(): "                              ");
+        jLabel3.setText(Data.user.getId());
 
         jLabel4.setText("Name");
-
-        jTextField1.setText(Data.user != null ? Data.user.getName(): "      ");
+        jTextField1.setText(Data.user.getName());
 
         jLabel5.setText("Age");
-
-        jTextField2.setText(Data.user != null ? Data.user.getAge(): "      ");
+        jTextField2.setText(Data.user.getAge());
 
         jLabel6.setText("Gender");
-
-        jTextField3.setText(Data.user != null ? Data.user.getGender(): "      ");
+        jTextField3.setText(Data.user.getGender());
 
         jLabel7.setText("Country");
-
-        jTextField4.setText(Data.user != null ? Data.user.getCountry(): "      ");
+        jTextField4.setText(Data.user.getCountry());
 
         jButton1.setText("Save Changes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +115,7 @@ public class UpdateProfile extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,14 +125,14 @@ public class UpdateProfile extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel6)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(38, 38, 38)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel5)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                .addComponent(jTextField2)))))
                 .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(

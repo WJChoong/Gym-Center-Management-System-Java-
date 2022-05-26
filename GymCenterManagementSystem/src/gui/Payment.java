@@ -82,7 +82,12 @@ public class Payment extends javax.swing.JFrame {
         jButton1.setText("Paid");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -178,11 +183,13 @@ public class Payment extends javax.swing.JFrame {
     	String value = jComboBox1.getSelectedItem().toString();
     	if (value == null) {
             jLabel5.setText("");
-            jLabel6.setText("");
-            jLabel7.setText("");    		
+            jLabel7.setText("");
+            jLabel9.setText("");
+            jLabel11.setText("");
+            jLabel13.setText("");   		
     	}else {
             for (int i = 0; i < Data.appointmentList.size(); i++) {
-                if (Data.customerList.get(i).getId().equals(value)) {
+                if (Data.appointmentList.get(i).getId().equals(value)) {
                     index = i;
                     jLabel5.setText(Data.appointmentList.get(i).getTrainerId());
                     jLabel7.setText(Data.appointmentList.get(i).getCustomerId());
@@ -194,7 +201,7 @@ public class Payment extends javax.swing.JFrame {
     	}
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton1ActionPerformed
             try {
                 // TODO add your handling code here:
                 String filename = "src\\payment.txt";
@@ -204,8 +211,7 @@ public class Payment extends javax.swing.JFrame {
                 int num = 0;
                 while (inputFile.hasNext()) {
                     // Read the next line.
-                    String data = inputFile.nextLine();
-                    
+                    String data = inputFile.nextLine(); 
                     // Split the line by using the delimiter ":" (semicolon) and store into array.
                     String[] details = data.split(",");
                     int ID = removeCharacter(details[0], "PY");
@@ -240,6 +246,9 @@ public class Payment extends javax.swing.JFrame {
                 				Data.appointmentList.get(index).getCost();
                 outputFile.println(data);
                 outputFile.close();
+                CollectPaymentGiveFeedback paymentFeedback = new CollectPaymentGiveFeedback();
+        		paymentFeedback.setVisible(true);
+        		setVisible(false);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
             }

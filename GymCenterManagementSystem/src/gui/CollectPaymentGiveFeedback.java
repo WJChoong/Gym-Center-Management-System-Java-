@@ -42,6 +42,7 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
 //    	while(!(data=reader.readLine()).equals("")){
         while (a.hasNext()){
 			String data = a.nextLine();
+			System.out.println(data);
     		String[] rawData = data.split(",") ;
     		Appointment appointment = new Appointment();
     		appointment.setId(rawData[0]);
@@ -56,24 +57,29 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
         return list;
     }
     
-    private void addRowToJTable() throws IOException
+    private void addRowToJTable()
     {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        ArrayList<Appointment> list = ListAppointments();
+        ArrayList<Appointment> list = null;
+		try {
+			list = ListAppointments();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         Data.appointmentList = list;
         for(int i = 0; i < list.size(); i++)
         {
-        	Object rowData[] = new Object[5];
-    		rowData[0] = list.get(i).getId();
+            Object rowData[] = new Object[6];
+            rowData[0] = list.get(i).getId();
             rowData[1] = list.get(i).getTrainerId();
             rowData[2] = list.get(i).getCustomerId();
             rowData[3] = list.get(i).getDate();
             rowData[4] = list.get(i).getTime();
-            System.out.println(list.get(i).getCost());
 //            int cost = Integer.parseInt(list.get(i).getDuration()) * 10;
-            String y = String.valueOf(list.get(i).getCost());
-            rowData[5] = y;
+//            String y = String.valueOf(list.get(i).getCost());
+            rowData[5] = list.get(i).getCost();
             model.addRow(rowData);
         }
                 
@@ -105,15 +111,7 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
             new String [] {
                 "Appointment ID", "Trainer ID", "Customer ID", "Date", "Time", "Payment (RM)"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Payment");
