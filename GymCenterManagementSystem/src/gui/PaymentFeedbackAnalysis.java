@@ -71,7 +71,7 @@ public class PaymentFeedbackAnalysis extends javax.swing.JFrame {
 //    	reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
 //    	data = null;
 //    	while(!(data=reader.readLine()).equals("")) {
-        Scanner b = new Scanner(new File("src/user.txt"));
+        Scanner b = new Scanner(new File("src/payment.txt"));
         while (b.hasNext()){
             String data = b.nextLine();
             String[] rawData = data.split(",") ;
@@ -81,7 +81,7 @@ public class PaymentFeedbackAnalysis extends javax.swing.JFrame {
             String month = rawData[3].split("-")[1];
             if (splittedDate[0].equals(year) && splittedDate[1].equals(month)) {
                 int cost = Integer.parseInt(rawData[5]) * 10;
-                trainers.put(rawData[1], trainers.get(rawData[2]) + cost);
+//                trainers.put(rawData[1], trainers.get(rawData[2]) + cost);
              }
     		
     	}
@@ -130,7 +130,7 @@ public class PaymentFeedbackAnalysis extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Trainer ID", "Collected Payment (RM)", "Uncollected Payment (RM)"
+                "Trainer ID", "Collected Payment (RM)"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -149,9 +149,12 @@ public class PaymentFeedbackAnalysis extends javax.swing.JFrame {
     	feedbacks.put("Price", 0);
     	feedbacks.put("Others", 0);
     	feedbacks.put("None", 0);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-    	String data = null;
-    	while((data=reader.readLine()) != null) {
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
+//    	String data = null;
+//    	while(!(data=reader.readLine()).equals("")) {
+    	Scanner b = new Scanner(new File("src/feedback.txt"));
+    	while (b.hasNext()){
+			String data = b.nextLine();
     		String[] rawData = data.split(",") ;
     		String date = LocalDate.now().toString();
     		String[] splittedDate = date.split("-");
@@ -236,6 +239,8 @@ public class PaymentFeedbackAnalysis extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    	ManagerAccount account = new ManagerAccount();
+        setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

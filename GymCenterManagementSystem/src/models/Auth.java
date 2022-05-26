@@ -104,6 +104,7 @@ public class Auth {
         while ((currentLine = br.readLine()) != null){
             data = currentLine.split(",");
             if (!(data[0].equals(removeTerm))){
+            	System.out.println(data[0] + " - " + removeTerm);
                 pw.println(currentLine);
             }
         }

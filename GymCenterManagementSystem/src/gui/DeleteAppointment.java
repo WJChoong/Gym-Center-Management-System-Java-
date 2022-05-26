@@ -195,6 +195,7 @@ public class DeleteAppointment extends javax.swing.JFrame {
         // TODO add your handling code here:
     	 try{
             String id = Data.appointmentList.get(index).getId();
+            System.out.println(id);
             Auth.removeRecord("src/appointment.txt", id);
             JOptionPane.showMessageDialog(null, "Successfully deleted");
             if (Data.user.getPosition().equals("M")) {
