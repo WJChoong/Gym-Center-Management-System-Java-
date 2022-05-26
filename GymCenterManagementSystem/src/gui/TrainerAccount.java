@@ -58,7 +58,7 @@ public class TrainerAccount  extends JFrame implements ActionListener{
         Panel p5 = new Panel();
         Panel p6 = new Panel();
         
-        Label lbl1 = new Label("Welcome, Manager");
+        Label lbl1 = new Label("Welcome, Trainer");
         Label lbl2 = new Label("You are Authorized to:");
         btn1 = new Button("Update Individual Profile");
         btn2 = new Button("Manage Individual Appointment");
