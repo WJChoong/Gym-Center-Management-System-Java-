@@ -219,7 +219,7 @@ public class NewCustomer extends javax.swing.JFrame {
                     ID = "CS" + num;
                 }
                 String gender = jRadioButton1.isSelected() ? "M" : "F";
-                String data = ID + "," + jTextField1.getText() + "," + jTextField2.getText() + "," + gender;
+                String data = ID + "," + jTextField1.getText().trim() + "," + jTextField2.getText().trim() + "," + gender;
                 outputFile.println(data);
                 outputFile.close();
                 JOptionPane.showMessageDialog(null, "Successfully register new customer");

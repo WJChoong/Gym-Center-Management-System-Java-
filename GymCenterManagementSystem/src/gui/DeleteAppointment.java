@@ -202,6 +202,7 @@ public class DeleteAppointment extends javax.swing.JFrame {
     	 try{
             String filepath = "src/appointment.txt";
             String tempFile = "src/temp.txt";
+            
             File oldFile = new File(filepath);
             File newFile = new File(tempFile);
             String currentLine;
@@ -225,17 +226,17 @@ public class DeleteAppointment extends javax.swing.JFrame {
             br.close();
             bw.close();
             fw.close();
-
+            
             oldFile.delete();
             File dump = new File(filepath);
             newFile.renameTo(dump);
-//            Auth.removeRecord("src/appointment.txt", id);
+//            Auth.removeRecord("src/customer.txt", id);
             JOptionPane.showMessageDialog(null, "Successfully deleted");
-            if (Data.user.getPosition().equals("M")) {
+            if (Data.user.getPosition().equals("M")){
                 ManageAppointment manageAppointment = new ManageAppointment();
                 manageAppointment.setVisible(true);
                 setVisible(false);
-            }else if(Data.user.getPosition().equals("T")) {
+            }else if(Data.user.getPosition().equals("T")){
                 ManageIndividualAppointment manageIndividualAppointment = new ManageIndividualAppointment();
                 manageIndividualAppointment.setVisible(true);
                 setVisible(false);

@@ -268,15 +268,6 @@ public class DeleteUser extends javax.swing.JFrame {
             
             FileReader fr = new FileReader(filepath);
             BufferedReader br = new BufferedReader(fr);
-            
-//                  String lineToRemove = Data.userList.get(index).getId() + "," +
-//                                    Data.userList.get(index).getUsername() + "," +
-//                                    Data.userList.get(index).getPassword() + "," +
-//                                    Data.userList.get(index).getPosition() + "," +
-//                                    Data.userList.get(index).getName() + "," +
-//                                    Data.userList.get(index).getAge() + "," +
-//                                    Data.userList.get(index).getGender() + "," +
-//                                    Data.userList.get(index).getCountry();
 
             while ((currentLine = br.readLine()) != null){
                 data = currentLine.split(",");

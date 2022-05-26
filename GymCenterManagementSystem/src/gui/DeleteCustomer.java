@@ -182,8 +182,9 @@ public class DeleteCustomer extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try{
-            String tempFile = "src/temp.txt";
             String filepath = "src/customer.txt";
+            String tempFile = "src/temp.txt";
+            
             File oldFile = new File(filepath);
             File newFile = new File(tempFile);
             String currentLine;
