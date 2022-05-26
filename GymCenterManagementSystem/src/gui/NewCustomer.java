@@ -5,6 +5,7 @@
  */
 package gui;
 
+import static gui.EditUser.isNumeric;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +14,9 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+
 import static models.Auth.removeCharacter;
 
 /**
@@ -75,13 +79,13 @@ public class NewCustomer extends javax.swing.JFrame {
 
         jLabel2.setText("Name");
 
-        jTextField1.setText("  ");
+        jTextField1.setText(" ");
 
         jLabel3.setText("Gender");
 
         jLabel4.setText("Age");
 
-        jTextField2.setText("                     ");
+        jTextField2.setText(" ");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -126,14 +130,15 @@ public class NewCustomer extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton2)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,7 +182,8 @@ public class NewCustomer extends javax.swing.JFrame {
         jLabel5.setText("                                         ");
         if (jTextField1.getText().isEmpty() ||
                 !(jRadioButton1.isSelected() || jRadioButton2.isSelected()) ||
-                jTextField2.getText().isEmpty()) {
+                jTextField2.getText().isEmpty() ||
+                !isNumeric(jTextField2.getText())) {
             jLabel5.setText("Please fill in all the information correctly");
         } else {
             try {
@@ -203,8 +209,8 @@ public class NewCustomer extends javax.swing.JFrame {
                 num++;
                 String num_ID = String.valueOf(num);
                 String ID = "0";
-                if (num_ID.length() < 5) {
-                    for (int i = 0; i < (5 - num_ID.length()); i++) {
+                if (num_ID.length() < 4) {
+                    for (int i = 0; i < (4 - num_ID.length()); i++) {
                         String halfID = "0";
                         ID = ID + halfID;
                     }
@@ -216,13 +222,14 @@ public class NewCustomer extends javax.swing.JFrame {
                 String data = ID + "," + jTextField1.getText() + "," + jTextField2.getText() + "," + gender;
                 outputFile.println(data);
                 outputFile.close();
+                JOptionPane.showMessageDialog(null, "Successfully register new customer");
                 ManageCustomer manageCustomer = new ManageCustomer();
                 manageCustomer.setVisible(true);
                 setVisible(false);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(NewCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            	JOptionPane.showMessageDialog(null, "Failed to register new customer");
             }
         }
     }// GEN-LAST:event_jButton1ActionPerformed

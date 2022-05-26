@@ -97,7 +97,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Update");
+        jButton2.setText("Add");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -117,11 +117,6 @@ public class NewUser extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Trainer");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         buttonGroup2.add(jRadioButton3);
         jRadioButton3.setText("Female");

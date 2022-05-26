@@ -70,11 +70,11 @@ public class Auth {
         String num_ID = String.valueOf(num);
         String ID = "0";
         if (num_ID.length() < 5){
-            for (int i = 0; i < (5-num_ID.length()); i++){
+            for (int i = 0; i < (4-num_ID.length()); i++){
                 String halfID = "0";
                 ID = ID + halfID;
             }
-            ID = "US"+ ID + num;
+            ID = "US"+ ID + num_ID;
         }
         else{
             ID = "US" + num;

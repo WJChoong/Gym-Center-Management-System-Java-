@@ -268,8 +268,8 @@ public class EditCustomer extends javax.swing.JFrame {
                 writer.append(fileContents);
                 writer.flush();
                 JOptionPane.showMessageDialog(this, "The information had been updated!");
-                ManageManagerTrainer manageTrainer = new ManageManagerTrainer();
-                manageTrainer.setVisible(true);
+                ManageCustomer manageCustomer = new ManageCustomer();
+                manageCustomer.setVisible(true);
                 setVisible(false);
             }catch(IOException e){
                 try {

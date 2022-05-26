@@ -70,7 +70,7 @@ public class DeleteUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Edit User Account");
+        jLabel1.setText("Delete User Account");
 
         jLabel10.setText("User ID");
 
@@ -104,12 +104,7 @@ public class DeleteUser extends javax.swing.JFrame {
         jButton1.setText("Cancel");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    jButton1ActionPerformed(evt);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -141,13 +136,8 @@ public class DeleteUser extends javax.swing.JFrame {
         jRadioButton4.setText("Male");
 
         jLabel9.setText("                                                 ");
-        
-        String[] userId = new String[Data.userList.size() + 1];
-        userId[0] = null;
-        for (int i = 1; i < Data.userList.size() + 1; i++) {
-            userId[i] = Data.userList.get(i-1).getId();
-        }
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(userId));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

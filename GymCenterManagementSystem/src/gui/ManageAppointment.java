@@ -81,11 +81,12 @@ public class ManageAppointment extends javax.swing.JFrame {
         Data.appointmentList = list;
         for(int i = 0; i < list.size(); i++)
         {
-        	Object rowData[] = new Object[6];
-        	if (jTextField1.getText().length() > 0){
-                    String keyword = jTextField1.getText();
-                    if (list.get(i).getId().contains(keyword) ||
-                            list.get(i).getTrainerId().contains(keyword) ||
+            Object rowData[] = new Object[6];
+            if (jTextField1.getText().length() > 0){
+                String keyword = jTextField1.getText();
+                if ( !keyword.equals("")||
+                    list.get(i).getId().contains(keyword) ||
+                    list.get(i).getTrainerId().contains(keyword) ||
                     list.get(i).getCustomerId().contains(keyword) ||
                     list.get(i).getDate().contains(keyword) ||
                     list.get(i).getTime().contains(keyword) ||
@@ -97,15 +98,15 @@ public class ManageAppointment extends javax.swing.JFrame {
                     rowData[3] = list.get(i).getDate();
                     rowData[4] = list.get(i).getTime();
                     rowData[5] = list.get(i).getDuration();
-        		}
-        	}else {
-        		rowData[0] = list.get(i).getId();
-                rowData[1] = list.get(i).getTrainerId();
-                rowData[2] = list.get(i).getCustomerId();
-                rowData[3] = list.get(i).getDate();
-                rowData[4] = list.get(i).getTime();
-                rowData[5] = list.get(i).getDuration();
-        	}
+                        }
+                }else {
+                    rowData[0] = list.get(i).getId();
+                    rowData[1] = list.get(i).getTrainerId();
+                    rowData[2] = list.get(i).getCustomerId();
+                    rowData[3] = list.get(i).getDate();
+                    rowData[4] = list.get(i).getTime();
+                    rowData[5] = list.get(i).getDuration();
+                }
             model.addRow(rowData);
         }
                 

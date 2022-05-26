@@ -83,11 +83,8 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jLabel2.setText("Trainer User ID");
 
-        jTextField1.setText("                                                ");
-
         jLabel3.setText("Customer ID");
 
-        jTextField2.setText("                                  ");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -96,11 +93,13 @@ public class NewAppointment extends javax.swing.JFrame {
 
         jLabel4.setText("Date");
 
-        jTextField3.setText("                              ");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Time");
-
-        jTextField4.setText("                       ");
 
         jButton1.setText("Create");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -117,8 +116,6 @@ public class NewAppointment extends javax.swing.JFrame {
         });
 
         jLabel6.setText("Duration (hour)");
-
-        jTextField5.setText("               ");
 
         jLabel7.setText("                                           ");
 
@@ -137,14 +134,14 @@ public class NewAppointment extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,7 +203,7 @@ public class NewAppointment extends javax.swing.JFrame {
                 jTextField4.getText().isEmpty() ||
                 !isNumeric(jTextField5.getText()) ||
                 jTextField5.getText().isEmpty() ||
-                !!isNumeric(jTextField4.getText())){
+                !isNumeric(jTextField4.getText())){
                 jLabel7.setText("Please fill in all the information correctly");
         	}else{
         		try {
@@ -248,6 +245,7 @@ public class NewAppointment extends javax.swing.JFrame {
                     				jTextField4.getText() + "," + jTextField5.getText();
                     outputFile.println(data);
                     outputFile.close();
+                    JOptionPane.showMessageDialog(null, "Successfully make an appointment");
                     if (Data.user.getPosition().equals("M")) {
                 		ManageAppointment manageAppointment = new ManageAppointment();
                         manageAppointment.setVisible(true);
@@ -282,6 +280,10 @@ public class NewAppointment extends javax.swing.JFrame {
             Logger.getLogger(NewAppointment.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments

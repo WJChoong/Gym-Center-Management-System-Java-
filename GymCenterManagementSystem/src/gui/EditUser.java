@@ -118,7 +118,7 @@ public class EditUser extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Add");
+        jButton2.setText("Update");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -146,7 +146,7 @@ public class EditUser extends javax.swing.JFrame {
         jRadioButton4.setText("Male");
 
         jLabel9.setText("                                                                       ");
-
+        
         String[] userId = new String[Data.userList.size() + 1];
         userId[0] = null;
         for (int i = 1; i < Data.userList.size() + 1; i++) {

@@ -80,7 +80,6 @@ public class EditAppointment extends javax.swing.JFrame {
 
         jLabel2.setText("Trainer User ID");
 
-        jTextField1.setText("                                   ");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -89,15 +88,10 @@ public class EditAppointment extends javax.swing.JFrame {
 
         jLabel3.setText("Customer ID");
 
-        jTextField2.setText("                                        ");
-
         jLabel4.setText("Date");
-
-        jTextField3.setText("                                  ");
 
         jLabel5.setText("Time");
 
-        jTextField4.setText("                       ");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -125,8 +119,6 @@ public class EditAppointment extends javax.swing.JFrame {
 
         jLabel6.setText("Duration (hour)");
 
-        jTextField5.setText("                              ");
-
         jLabel7.setText("                                                                ");
 
         String[] appointmentId = new String[Data.appointmentList.size() + 1];
@@ -135,6 +127,11 @@ public class EditAppointment extends javax.swing.JFrame {
         	appointmentId[i] = Data.appointmentList.get(i-1).getId();
         }
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(appointmentId));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,9 +158,9 @@ public class EditAppointment extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -245,7 +242,7 @@ public class EditAppointment extends javax.swing.JFrame {
 		                jTextField2.getText() + "," +
 		                jTextField3.getText() + "," +
 		                jTextField4.getText() + "," +
-		                jTextField5.getText() + ",";
+		                jTextField5.getText();
 		        //Replacing the old line with new line
 		        fileContents = fileContents.replaceAll(oldLine, newLine);
 		        //instantiating the FileWriter class
@@ -295,6 +292,29 @@ public class EditAppointment extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    	String value = jComboBox1.getSelectedItem().toString();
+        if (value == null) {
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+        }else {
+            for (int i = 0; i < Data.appointmentList.size(); i++) {
+                if (Data.appointmentList.get(i).getId().equals(value)) {
+                    index = i;
+                    jTextField1.setText(Data.appointmentList.get(i).getTrainerId());
+                    jTextField2.setText(Data.appointmentList.get(i).getCustomerId());
+                    jTextField3.setText(Data.appointmentList.get(i).getDate());
+                    jTextField4.setText(Data.appointmentList.get(i).getTime());
+                    jTextField5.setText(Data.appointmentList.get(i).getDuration());                    
+                }
+            }
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
