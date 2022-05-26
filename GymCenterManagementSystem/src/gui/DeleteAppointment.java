@@ -203,33 +203,78 @@ public class DeleteAppointment extends javax.swing.JFrame {
             String filepath = "src/appointment.txt";
             String tempFile = "src/temp.txt";
             
-            File oldFile = new File(filepath);
-            File newFile = new File(tempFile);
-            String currentLine;
-            String data[];
-            FileWriter fw = new FileWriter(tempFile,true);
+            FileWriter fw = new FileWriter(filepath,true);
             BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-
-            FileReader fr = new FileReader(filepath);
-            BufferedReader br = new BufferedReader(fr);
-            while ((currentLine = br.readLine()) != null){
-                data = currentLine.split(",");
-                if (!(data[0].equals(Data.appointmentList.get(index).getId()))){
-                    pw.println(currentLine);
+            PrintWriter pw = new PrintWriter(filepath);
+            pw.print("");
+            for(int i = 0; i < Data.appointmentList.size(); i++){
+                if (!Data.appointmentList.get(i).getId().equals(Data.appointment.getId())){
+                    bw.write(Data.appointmentList.get(i).getId() + "," +
+                                Data.appointmentList.get(i).getTrainerId() + "," +
+                                Data.appointmentList.get(i).getCustomerId() + "," +
+                                Data.appointmentList.get(i).getDate() + "," +
+                                Data.appointmentList.get(i).getTime() + "," +
+                                Data.appointmentList.get(i).getDuration());
                 }
+                bw.newLine();
             }
-
-            pw.flush();
-            pw.close();
-            fr.close();
-            br.close();
             bw.close();
             fw.close();
             
-            oldFile.delete();
-            File dump = new File(filepath);
-            newFile.renameTo(dump);
+//            PrintWriter p = new PrintWriter("src/appointment.txt");
+//            for(int i = 0; i < Data.appointmentList.size(); i++){
+//                if (!Data.appointment.getId().equals(Data.appointmentList.get(i).getId())){
+//                    p.print(Data.appointmentList.get(i).getId() + "," +
+//                                Data.appointmentList.get(i).getTrainerId() + "," +
+//                                Data.appointmentList.get(i).getCustomerId() + "," +
+//                                Data.appointmentList.get(i).getDate() + "," +
+//                                Data.appointmentList.get(i).getTime() + "," +
+//                                Data.appointmentList.get(i).getDuration());
+//                }                
+//                p.println();
+//            }
+//            p.close(); //must put outside the for loop
+//             PrintWriter q = new PrintWriter("booking.txt");
+//            for(int i = 0; i < allBookings.size(); i++){
+//                Booking j = allBookings.get(i);
+//                q.println(j.getId());
+//                q.println(j.getConsultant());
+//                q.println(j.getDay());
+//                q.println(j.getTime());
+//                q.println(j.isPaid());
+//                q.println(j.getOwner().getName());
+//                q.println();
+//            }
+//            q.close(); //must put outside the for loop
+            
+//            File oldFile = new File(filepath);
+//            File newFile = new File(tempFile);
+//            String currentLine;
+//            String data[];
+//            FileWriter fw = new FileWriter(tempFile,true);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            PrintWriter pw = new PrintWriter(bw);
+//
+//            FileReader fr = new FileReader(filepath);
+//            BufferedReader br = new BufferedReader(fr);
+//            while ((currentLine = br.readLine()) != null){
+//                data = currentLine.split(",");
+//                if (!(data[0].equals(Data.appointmentList.get(index).getId()))){
+//                    pw.println(currentLine);
+//                }
+//            }
+//
+//            pw.flush();
+//            pw.close();
+//            fr.close();
+//            br.close();
+//            bw.close();
+//            fw.close();
+//            
+//            oldFile.delete();
+//            File dump = new File(filepath);
+//            newFile.renameTo(dump);
+
 //            Auth.removeRecord("src/customer.txt", id);
             JOptionPane.showMessageDialog(null, "Successfully deleted");
             if (Data.user.getPosition().equals("M")){
@@ -275,6 +320,7 @@ public class DeleteAppointment extends javax.swing.JFrame {
             for (int i = 0; i < Data.appointmentList.size(); i++) {
                 if (Data.appointmentList.get(i).getId().equals(value)) {
                     index = i;
+                    Data.appointment = Data.appointmentList.get(i);
                     jLabel9.setText(Data.appointmentList.get(i).getTrainerId());
                     jLabel8.setText(Data.appointmentList.get(i).getCustomerId());
                     jLabel10.setText(Data.appointmentList.get(i).getDate());
