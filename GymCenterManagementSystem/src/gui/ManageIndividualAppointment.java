@@ -37,9 +37,6 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
     private ArrayList ListAppointments() throws IOException
     {
         ArrayList<Appointment> list = new ArrayList<Appointment>();
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-//    	String data = null;
-//    	while(!(data=reader.readLine()).equals("")) {
         Scanner b = new Scanner(new File("src/appointment.txt"));
         while (b.hasNext()){
 			String data = b.nextLine();
@@ -64,7 +61,6 @@ public class ManageIndividualAppointment extends javax.swing.JFrame {
     		}
     	}
         System.out.println("hey 2");
-//    	reader.close();
         return list;
     }
     

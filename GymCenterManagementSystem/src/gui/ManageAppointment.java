@@ -50,23 +50,12 @@ public class ManageAppointment extends javax.swing.JFrame {
             if ((splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(splittedDate[2]) <= Integer.parseInt(day)) &&
                     (splittedDate[0].equals(year) && splittedDate[1].equals(month) && Integer.parseInt(day) < (Integer.parseInt(splittedDate[2]) + 14))) {
                 Appointment appointment = new Appointment();
-//                if (Data.user.getPosition().equals("T")){
-//                    if(rawData[1].equals(Data.user.getId())){
-//                        appointment.setId(rawData[0]);
-//                        appointment.setTrainerId(rawData[1]);
-//                        appointment.setCustomerId(rawData[2]);
-//                        appointment.setDate(rawData[3]);
-//                        appointment.setTime(rawData[4]);
-//                        appointment.setDuration(rawData[5]);
-//                    }
-//                }else{
                     appointment.setId(rawData[0]);
                     appointment.setTrainerId(rawData[1]);
                     appointment.setCustomerId(rawData[2]);
                     appointment.setDate(rawData[3]);
                     appointment.setTime(rawData[4]);
                     appointment.setDuration(rawData[5]);
-//                }
                 list.add(appointment);
             }
     	}

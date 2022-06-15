@@ -36,10 +36,7 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
     private ArrayList ListAppointments() throws IOException
     {
         ArrayList<Appointment> list = new ArrayList<Appointment>();
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(Auth.class.getClassLoader().getResourceAsStream("appointment.txt")));
-//    	String data = null;
         Scanner a = new Scanner(new File("src/appointment.txt"));
-//    	while(!(data=reader.readLine()).equals("")){
         while (a.hasNext()){
 			String data = a.nextLine();
 			System.out.println(data);
@@ -53,7 +50,6 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
     		appointment.setDuration(rawData[5]);
             list.add(appointment);
     	}
-//    	reader.close();
         return list;
     }
     
@@ -77,8 +73,6 @@ public class CollectPaymentGiveFeedback extends javax.swing.JFrame {
             rowData[2] = list.get(i).getCustomerId();
             rowData[3] = list.get(i).getDate();
             rowData[4] = list.get(i).getTime();
-//            int cost = Integer.parseInt(list.get(i).getDuration()) * 10;
-//            String y = String.valueOf(list.get(i).getCost());
             rowData[5] = list.get(i).getCost();
             model.addRow(rowData);
         }

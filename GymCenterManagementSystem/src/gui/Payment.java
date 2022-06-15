@@ -239,11 +239,12 @@ public class Payment extends javax.swing.JFrame {
                 } else {
                     ID = "PY" + num;
                 }
-                String data = ID + "," + Data.appointmentList.get(index).getTrainerId() + 
-                				Data.appointmentList.get(index).getCustomerId() + "," + 
-                				Data.appointmentList.get(index).getDate() + "," + 
-                				Data.appointmentList.get(index).getTime() + "," + 
-                				Data.appointmentList.get(index).getCost();
+                String data = ID + "," + 
+                                Data.appointmentList.get(index).getTrainerId() + "," + 
+                                Data.appointmentList.get(index).getCustomerId() + "," + 
+                                Data.appointmentList.get(index).getDate() + "," + 
+                                Data.appointmentList.get(index).getTime() + "," + 
+                                Data.appointmentList.get(index).getCost();
                 outputFile.println(data);
                 outputFile.close();
                 CollectPaymentGiveFeedback paymentFeedback = new CollectPaymentGiveFeedback();
